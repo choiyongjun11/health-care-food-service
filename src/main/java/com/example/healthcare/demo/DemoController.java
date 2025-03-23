@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     @GetMapping("/")
     public String test() {
-        return "25-03-23 wow ~~ test";
+        return "25-03-23 default setting !";
 
     }
 }
