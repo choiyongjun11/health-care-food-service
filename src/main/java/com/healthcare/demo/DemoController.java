@@ -1,7 +1,7 @@
 package com.healthcare.demo;
 
 
-import com.healthcare.validator.NotSpace;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     @GetMapping("/")
     public String test() {
-        return "25-03-23 default setting !";
+        return "25-03-24!! setting";
 
     }
 
