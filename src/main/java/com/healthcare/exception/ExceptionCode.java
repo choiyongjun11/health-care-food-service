@@ -1,6 +1,5 @@
 package com.healthcare.exception;
 
-
 import lombok.Getter;
 
 /*

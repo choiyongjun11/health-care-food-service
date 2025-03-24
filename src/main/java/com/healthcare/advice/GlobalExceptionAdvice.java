@@ -2,7 +2,7 @@ package com.healthcare.advice;
 
 import com.healthcare.exception.BusinessLogicException;
 import com.healthcare.response.ErrorResponse;
-import jakarta.validation.ConstraintViolationException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +12,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.validation.ConstraintViolationException;
 
 @Slf4j
-@RestController
+@RestControllerAdvice
 public class GlobalExceptionAdvice {
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
@@ -37,7 +40,8 @@ public class GlobalExceptionAdvice {
     public ResponseEntity handleBusinessLogicException(BusinessLogicException e) {
         final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
 
-        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode().getCode()));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
+                .getCode()));
     }
 
     @ExceptionHandler
@@ -66,7 +70,8 @@ public class GlobalExceptionAdvice {
     public ErrorResponse handleMissingServletRequestParameterException(
             MissingServletRequestParameterException e) {
 
-        final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
+        final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST,
+                e.getMessage());
 
         return response;
     }
@@ -80,4 +85,5 @@ public class GlobalExceptionAdvice {
 
         return response;
     }
+
 }

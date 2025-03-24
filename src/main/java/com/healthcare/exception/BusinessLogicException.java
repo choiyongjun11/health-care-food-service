@@ -1,6 +1,5 @@
 package com.healthcare.exception;
 
-import jakarta.persistence.Entity;
 import lombok.Getter;
 
 public class BusinessLogicException extends RuntimeException {

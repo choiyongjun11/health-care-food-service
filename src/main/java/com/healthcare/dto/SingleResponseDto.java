@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class singleResponseDto<T> {
+public class SingleResponseDto<T> {
     private T data;
 }

@@ -1,8 +1,9 @@
 package com.healthcare.validator;
 
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.util.StringUtils;
+
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 /*
 no.1 - 공백(null) 예외 처리
@@ -22,6 +23,7 @@ public boolean isValid(String value, ConstraintValidatorContext context) {
 
  */
 public class NotSpaceValidator implements ConstraintValidator<NotSpace, String> {
+
     @Override
     public void initialize(NotSpace constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
@@ -31,5 +33,7 @@ public class NotSpaceValidator implements ConstraintValidator<NotSpace, String> 
     public boolean isValid(String value, ConstraintValidatorContext context) {
         return value == null || StringUtils.hasText(value);
     }
+
+
 
 }

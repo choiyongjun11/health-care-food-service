@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -34,7 +33,7 @@ public class Member {
     @Column(nullable = false)
     private Date birthday;
 
-    @Column(nullable = false)
+    @Column(length = 13, nullable = false, unique = true)
     private String phone;
 
     @ElementCollection(fetch = FetchType.EAGER)
