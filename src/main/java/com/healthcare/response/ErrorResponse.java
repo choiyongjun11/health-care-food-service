@@ -67,9 +67,9 @@ public class ErrorResponse {
 
         public static List<FiledError> of(BindingResult bindingResult) {
             final List<org.springframework.validation.FieldError> fieldErrors = bindingResult.getFieldErrors();
-
+            //주의사항: new FiledError 객체 생성 시 위에 선언된 private FiledError로 사용할 것. 이미 라이브러리에 구현된 FiledError 메서도가 있어 충돌이 난다.
             return fieldErrors.stream()
-                    .map(error -> new FiledError( //주의사항: new FiledError 객체 생성 시 위에 선언된 private FiledError로 사용할 것. 이미 라이브러리에 구현된 FiledError 메서도가 있어 충돌이 난다.
+                    .map(error -> new FiledError(
                             error.getField(),
                             error.getRejectedValue() == null ?
                                     "": error.getRejectedValue().toString(),
