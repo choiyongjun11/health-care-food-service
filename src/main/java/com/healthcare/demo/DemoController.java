@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     @GetMapping("/")
     public String test() {
-        return "25-03-24!! setting";
+        return "25-03-24!! hellllll";
 
     }
 
