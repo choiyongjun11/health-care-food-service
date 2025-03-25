@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 @Component
 public class AuthorityUtils {
     /*  application.yml 다음과 같이 추가한다.
-mail:
-  address:
-    admin: admin@gmail.com
-    application.yml 파일에 admin 주소가 동일한지 확인하자.
+    mail:
+      address:
+        admin: admin@gmail.com
+        application.yml 파일에 admin 주소가 동일한지 확인하자.
 
- */
+     */
     @Value("${mail.address.admin}")
     private String adminMailAddress; //최고 관리자 메일 주소
 
@@ -44,5 +44,4 @@ mail:
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
     }
-
 }
