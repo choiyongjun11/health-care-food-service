@@ -17,14 +17,11 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    //private final ApplicationEventPublisher publisher;
-
     private final PasswordEncoder passwordEncoder; //spring security jwt 토큰 인증을 위해
     private final AuthorityUtils authorityUtils; //spring security jwt 토큰 인증을 위해 우리가 만든 AuthorityUtils 클래스를 활용한다.
 
-    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, PasswordEncoder passwordEncoder, AuthorityUtils authorityUtils) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, AuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
-        //this.publisher = publisher;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
     }
@@ -37,10 +34,10 @@ public class MemberService {
 
         //이메일 기준으로 권한 정보 추가
         List<String> roles = authorityUtils.createRoles(member.getEmail());
-
         member.setRoles(roles);
 
         Member savedMember = memberRepository.save(member);
+
         return savedMember;
     }
 

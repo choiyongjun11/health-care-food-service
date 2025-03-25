@@ -5,15 +5,12 @@ import com.healthcare.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 public class MemberDto {
     @Getter
@@ -53,14 +50,12 @@ public class MemberDto {
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;
-
         }
 
     }
 
     @Getter
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response {
 
         private long memberId;

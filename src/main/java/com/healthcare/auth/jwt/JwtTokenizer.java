@@ -18,11 +18,15 @@ token - secretKey, accessToken - 단시간 유지되는 토큰, refreshToken - �
   application.yml 파일에 아래 value 값을 추가하고 일치한지 확인을 해야한다.  @Gatter,@value - springframework 애너테이션을 사용하자.
  */
 
-import io.jsonwebtoken.Jwt;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -30,28 +34,40 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+@Component
 public class JwtTokenizer {
+    @Getter
+    @Value("${jwt.key}")
+    private String secretKey;
 
-    public String encodeBase64SecretKey(String secretKey) {
+    @Getter
+    @Value("${jwt.access-token-expiration-minutes}")
+    private int accessTokenExpirationMinutes; //토큰 만료 시간
+
+    @Getter
+    @Value("${jwt.refresh-token-expiration-minutes}")
+    private int refreshTokenExpirationMinutes; //토큰 만료 시간
+
+    public String encodeBase64SecretKey(String secretKey) { //secretKey 발행
+
         //UTF_8 한국어 지원 가능한 인코더 방식으로 BASE64 암호화를 하고자 합니다.
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     //access Token 발행
-    public String generateAccessToken(Map<String, Object> claims,
+    public String generateAccessToken(Map<String, Object> clamis,
                                       String subject,
                                       Date expiration,
                                       String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
         return Jwts.builder()
-                .setClaims(claims)
+                .setClaims(clamis)
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
                 .signWith(key)
                 .compact();
-
     }
 
     //refresh 토큰
@@ -66,6 +82,16 @@ public class JwtTokenizer {
                 .compact();
     }
 
+    public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(jws);
+    }
+
+
     public void verifySignature(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -75,13 +101,17 @@ public class JwtTokenizer {
                 .parseClaimsJws(jws);
     }
 
+    public Date getTokenExpiration(int expiration) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, expiration);
 
-    private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
-       byte [] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
-       Key key = Keys.hmacShaKeyFor(keyBytes);
-
-       return key;
+        return calendar.getTime();
     }
 
+    public Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
+        byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
+
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 
 }
