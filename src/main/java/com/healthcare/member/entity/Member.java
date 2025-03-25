@@ -24,7 +24,7 @@ public class Member {
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(nullable = false,length = 100)
+    @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false)
@@ -38,14 +38,5 @@ public class Member {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
-
-
-    public Member(String email,String name, Date birthday,String phone) {
-        this.email = email;
-        this.name = name;
-        this.birthday = birthday;
-        this.phone = phone;
-    }
-
 
 }
