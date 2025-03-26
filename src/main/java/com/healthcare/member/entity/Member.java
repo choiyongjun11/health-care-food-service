@@ -47,6 +47,11 @@ public class Member {
         this.phone = phone;
     }
 
+    //비밀번호 재설정 메서드
+    public void updatePassword(String newPassword ) {
+        this.password = newPassword;
+    }
+
 
     //mapping 관계 설정 Member (1) <-> MemberTarget (N) 1:N 관계
 
