@@ -1,5 +1,6 @@
 package com.healthcare.target.entity;
 
+import com.healthcare.food.entity.Effect;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,12 @@ public class TargetEffect {
     private long targetEffectId;
 
     //mapping 관계 설정 TargetEffect (N) <-> GoalType (1) N:1 관계
-    private long goalTypeId; //fk
+    @ManyToOne
+    @JoinColumn(name = "goal_type_id")
+    private GoalType goalType; //FK
+
     //mapping 관계 설정 TargetEffect (N) <-> Effect (1) N:1 관계
-    private long effectId; //fk
+    @ManyToOne
+    @JoinColumn(name = "effect_id")
+    private Effect effect; //FK
 }
