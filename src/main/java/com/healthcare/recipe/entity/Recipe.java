@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -13,9 +12,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "recipe")
 public class Recipe {
-    private int recipeId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long recipeId;
+    //mapping 관계 설정 Recipe (N) <-> Food (1) N:1 관계
+    private long foodId; // fk
     private String process;
-    private String cooktime;
     private String difficulty;
+
+
 
 }

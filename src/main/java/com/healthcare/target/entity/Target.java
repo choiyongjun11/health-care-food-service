@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -14,12 +13,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "target")
 public class Target {
-    private int targetId;
-    private String ageGroupName;
-    private String goalTypeCategory;
-    private String goalTypeName;
-    private TargetStatus targetStatus = TargetStatus.TARGET_DEACTIVED; //enum 으로 구현
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long targetId;
 
+    //mapping 관계 설정 Target (1) <-> MemberTarget (N) 1:N 관계
+
+    //mapping 관계 설정 Target (N) <-> GoalType (1) N:1 관계
+    private long goalTypeId; //fk
+
+
+    //mapping 관계 설정 Target (N) <-> AgeGroup (1) N:1 관계
+    private long ageGroupId; //fk
+
+    private TargetStatus targetStatus = TargetStatus.TARGET_DEACTIVED; //enum 으로 구현
 
     public enum TargetStatus {
         TARGET_DEACTIVED ("건강 목표 비활성화"),

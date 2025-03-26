@@ -39,4 +39,13 @@ public class Member {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
+    //mapping 관계 설정 Member (1) <-> MemberTarget (N) 1:N 관계
+
+    //mapping 관계 설정 Member (N) <-> Review (1) N:1 관계
+
+    //mapping 관계 설정 Member (1) <-> FoodLike (N) 1:N 관계
+
+    //mapping 관계 설정 Member (1) <-> FoodView (N) 1:N 관계
+
+
 }
