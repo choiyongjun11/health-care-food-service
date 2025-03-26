@@ -23,10 +23,11 @@ public class AgeGroup {
     private String ageGroupName;
 
     //mapping 관계 설정 AgeGroup (1) <-> Target (N) 1:N 관계
-    @OneToMany(mappedBy = "ageGroup",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "ageGroup",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Target> targets = new ArrayList<>();
 
     //mapping 관계 설정 AgeGroup (1) <-> AgeGroupFood (N) 1:N 관계
-    @OneToMany(mappedBy = "ageGroup", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "ageGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AgeGroupFood> ageGroupFoods = new ArrayList<>();
+
 }
