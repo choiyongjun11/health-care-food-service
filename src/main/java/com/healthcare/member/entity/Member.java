@@ -40,7 +40,12 @@ public class Member {
     @ElementCollection(fetch = FetchType.EAGER) //spring security - 권한 설정
     private List<String> roles = new ArrayList<>();
 
-
+    //회원 정보 수정 메서드
+    public void updateProfile (String name, LocalDateTime birthday, String phone) {
+        this.name = name;
+        this.birthday = birthday;
+        this.phone = phone;
+    }
 
 
     //mapping 관계 설정 Member (1) <-> MemberTarget (N) 1:N 관계
