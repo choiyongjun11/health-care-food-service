@@ -18,8 +18,12 @@ public class IngredientStore {
     private long ingredientStoreId;
     //mapping 관계 설정 IngredientStore (N) <-> Ingredient (1) N:1 관계
     private long ingredientId; //fk
+    @Column(nullable = false)
     private String marketName;
+    @Column(nullable = false)
     private String marketRegion;
+    @Column(nullable = false)
     private long marketPrice;
+    @Column(nullable = false)
     private String marketMap;
 }

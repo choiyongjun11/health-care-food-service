@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -21,6 +22,7 @@ public class FoodView {
     private long memberId; //fk
     //mapping 관계 설정 FoodView(N) <-> FoodIngredientList (1) N:1 관계
     private long foodId; //fk
-    private Date viewDate;
+    @Column(nullable = false)
+    private LocalDateTime viewDate = LocalDateTime.now(); // 등록 날짜 자동 설정
 
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,23 +22,26 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false, updatable = false, unique = true) //unqiue 제약조건으로 중복 회원가입 방지
     private String email;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100) //access_token, refresh_token 발행으로 길이 100
     private String password;
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private Date birthday;
+    private LocalDateTime birthday;
 
-    @Column(length = 13, nullable = false, unique = true)
+    @Column(length = 13, nullable = false, unique = true) //unique 제약조건으로 중복 회원가입을 방지
     private String phone;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER) //spring security - 권한 설정
     private List<String> roles = new ArrayList<>();
+
+
+
 
     //mapping 관계 설정 Member (1) <-> MemberTarget (N) 1:N 관계
 

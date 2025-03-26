@@ -22,10 +22,10 @@ public class Target {
     //mapping 관계 설정 Target (N) <-> GoalType (1) N:1 관계
     private long goalTypeId; //fk
 
-
     //mapping 관계 설정 Target (N) <-> AgeGroup (1) N:1 관계
     private long ageGroupId; //fk
 
+    @Column(nullable = false)
     private TargetStatus targetStatus = TargetStatus.TARGET_DEACTIVED; //enum 으로 구현
 
     public enum TargetStatus {

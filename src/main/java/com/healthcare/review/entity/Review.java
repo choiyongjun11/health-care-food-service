@@ -20,7 +20,8 @@ public class Review {
     private long memberId; //fk
     //mapping 관계 설정 Review (1) <-> Food (N) 1:N 관계
     private long foodId; //fk
-
+    @Column(nullable = false)
     private String content;
+    @Column(nullable = false)
     private LocalDateTime reviewCreateDate = LocalDateTime.now(); // 등록 날짜 자동 설정
 }

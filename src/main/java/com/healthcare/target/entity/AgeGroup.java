@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -17,6 +14,7 @@ public class AgeGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ageGroupId;
+    @Column(nullable = false)
     private String ageGroupName;
     //mapping 관계 설정 AgeGroup (1) <-> Target (N) 1:N 관계
     //mapping 관계 설정 AgeGroup (1) <-> AgeGroupFood (N) 1:N 관계

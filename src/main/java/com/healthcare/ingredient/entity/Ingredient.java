@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -16,10 +17,15 @@ public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ingredientId;
+    @Column(nullable = false)
     private String ingredientName;
+    @Column(nullable = false)
     private String ingredientType;
+    @Column(nullable = false)
     private String ingredientOrigin;
-    private Date expiryDate;
+    @Column(nullable = false)
+    private LocalDateTime expiryDate = LocalDateTime.now();
+    @Column(nullable = false)
     private String storageMethod;
 
     //mapping 관계 설정 Ingredient (1) <-> FoodIngredientList (N) 1:N 관계

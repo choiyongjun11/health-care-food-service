@@ -15,6 +15,7 @@ public class Effect {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long effectId;
+    @Column(nullable = false)
     private String effectName;
 
     //mapping 관계 설정 effect (1) <-> FoodEffect (N) 1:N 관계

@@ -22,8 +22,11 @@ public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long foodId;
+    @Column(nullable = false)
     private String foodName;
+    @Column(nullable = false)
     private int viewCount;
+    @Column(nullable = false)
     private LocalDateTime foodCreateDate = LocalDateTime.now(); // 등록 날짜 자동 설정
 
     //mapping 관계 설정 Food (1) <-> AgeGroupFood (N) 1:N 관계
