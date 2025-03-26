@@ -1,5 +1,6 @@
 package com.healthcare.food.entity;
 
+import com.healthcare.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,10 +18,15 @@ public class FoodLike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long foodLikeId;
+
     //mapping 관계 설정 FoodLike (N) <-> Member (1) N:1 관계
-    private long memberId; //fk
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member; //FK
     //mapping 관계 설정 FoodLike (N) <-> Food (1) N:1 관계
-    private long foodId; //fk
+    @ManyToOne
+    @JoinColumn(name = "food_id")
+    private Food food; //FK
 
     @Column(nullable = false)
     private long likeCount;

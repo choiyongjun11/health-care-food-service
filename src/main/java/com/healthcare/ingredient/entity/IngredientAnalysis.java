@@ -15,8 +15,12 @@ public class IngredientAnalysis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ingredientAnalysisId;
+
     //mapping 관계 설정 IngredientAnalysis (N) <-> Ingredient (1) N:1 관계
-    private long ingredientId; // fk //Private Ingredient Ingredient
+    @ManyToOne
+    @JoinColumn(name = "ingredient_id")
+    private Ingredient ingredient; //FK
+
     @Column(nullable = false)
     private String nutrientName;
     @Column(nullable = false)

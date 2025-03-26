@@ -17,8 +17,11 @@ public class FoodEffect {
     private long foodEffectId;
 
     //mapping 관계 설정 FoodEffect (N) <-> Food (1) N:1 관계
-    private long foodId;  //fk
+    @ManyToOne
+    @JoinColumn(name = "food_id")
+    private Food food; //FK
     //mapping 관계 설정 FoodEffect (N) <-> Effect (1) N:1 관계
-    private long effectId; //fk
-
+    @ManyToOne
+    @JoinColumn(name = "effect_id")
+    private Effect effect; //FK
 }

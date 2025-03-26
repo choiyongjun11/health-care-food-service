@@ -1,10 +1,14 @@
 package com.healthcare.review.entity;
 
+import com.healthcare.food.entity.Food;
+import com.healthcare.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -17,9 +21,13 @@ public class Review {
     private long reviewId;
 
     //mapping 관계 설정 Review (1) <-> Member (N) 1:N 관계
-    private long memberId; //fk
+    @OneToMany(mappedBy = "member_id",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Member> members = new ArrayList<>();
+
     //mapping 관계 설정 Review (1) <-> Food (N) 1:N 관계
-    private long foodId; //fk
+    @OneToMany(mappedBy = "food_id", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Food> foods = new ArrayList<>();
+
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)
