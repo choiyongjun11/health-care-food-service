@@ -22,10 +22,10 @@ public class GoalType {
     private String goalTypeName;
 
     //mapping 관계 설정 GoalType (1) <-> Target (N) 1:N 관계
-    @OneToMany(mappedBy = "GoalType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "goalType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Target> targets = new ArrayList<>();
 
     //mapping 관계 설정 GoalType (1) <-> TargetEffect (N) 1:N 관계
-    @OneToMany(mappedBy = "GoalType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "goalType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TargetEffect> targetEffects = new ArrayList<>();
 }

@@ -36,7 +36,6 @@ public class Target {
     @JoinColumn(name = "ageGroup_id")
     private AgeGroup ageGroup; //FK 키
 
-
     @Column(nullable = false)
     private TargetStatus targetStatus = TargetStatus.TARGET_DEACTIVED; //enum 으로 구현
 

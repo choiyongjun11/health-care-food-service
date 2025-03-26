@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class IngredientAnalysis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ingredientAnalysisId;
+    private Long ingredientAnalysisId; //래퍼 클래스
 
     //mapping 관계 설정 IngredientAnalysis (N) <-> Ingredient (1) N:1 관계
     @ManyToOne

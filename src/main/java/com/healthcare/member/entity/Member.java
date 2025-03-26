@@ -64,14 +64,14 @@ public class Member {
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL, orphanRemoval = true)
     private List <MemberTarget> memberTargets = new ArrayList<>();
 
-    //mapping 관계 설정 Member (N) <-> Review (1) N:1 관계
-    @ManyToOne
-    @JoinColumn(name = "review_id")
-    private Review review; //FK 키
+    //mapping 관계 설정 Member (1) <-> Review (N) 1:N 관계
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
     //mapping 관계 설정 Member (1) <-> FoodLike (N) 1:N 관계
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <FoodLike> foodLikes = new ArrayList<>();
+
     //mapping 관계 설정 Member (1) <-> FoodView (N) 1:N 관계
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List <FoodView> foodViews = new ArrayList<>();

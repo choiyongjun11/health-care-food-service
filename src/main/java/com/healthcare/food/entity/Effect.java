@@ -23,11 +23,11 @@ public class Effect {
     private String effectName;
 
     //mapping 관계 설정 effect (1) <-> FoodEffect (N) 1:N 관계
-    @OneToMany(mappedBy = "effect", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "effect", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodEffect> foodEffects = new ArrayList<>();
 
     //mapping 관계 설정 effect (1) <-> TargetEffect (N) 1:N 관계
-    @OneToMany(mappedBy = "effect", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "effect", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TargetEffect> targetEffects = new ArrayList<>();
 
 }
