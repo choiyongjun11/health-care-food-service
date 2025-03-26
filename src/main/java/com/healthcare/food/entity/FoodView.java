@@ -24,10 +24,10 @@ public class FoodView {
     @JoinColumn(name = "member_id")
     private Member member; //FK
 
-    //mapping 관계 설정 FoodView(N) <-> FoodIngredientList (1) N:1 관계
+    //mapping 관계 설정 FoodView(N) <-> Food (1) N:1 관계
     @ManyToOne
-    @JoinColumn(name = "food_ingredient_list_id")
-    private FoodIngredientList foodIngredientList; //FK
+    @JoinColumn(name = "food_id")
+    private Food food; //FK
 
     @Column(nullable = false)
     private LocalDateTime viewDate = LocalDateTime.now(); // 등록 날짜 자동 설정

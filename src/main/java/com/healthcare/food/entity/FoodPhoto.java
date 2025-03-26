@@ -16,10 +16,10 @@ import java.util.List;
 public class FoodPhoto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long foodPhotoId;
+    private Long foodPhotoId; //래퍼형
 
     //mapping 관계 설정 FoodPhoto (1) <-> Food (N) 1:N 관계
-    @OneToMany(mappedBy = "food_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "foodPhoto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Food> foods = new ArrayList<>(); //FK
 
     @Column(nullable = false)

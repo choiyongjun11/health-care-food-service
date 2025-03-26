@@ -35,30 +35,34 @@ public class Food {
     private LocalDateTime foodCreateDate = LocalDateTime.now(); // 등록 날짜 자동 설정
 
     //mapping 관계 설정 Food (1) <-> AgeGroupFood (N) 1:N 관계
-    @OneToMany(mappedBy = "age_group_food_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AgeGroupFood> ageGroupFoods = new ArrayList<>();
 
     //mapping 관계 설정 Food (1) <-> FoodEffect (N) 1:N 관계
-    @OneToMany(mappedBy = "food_effect_id",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodEffect> foodEffects = new ArrayList<>();
 
     //mapping 관계 설정 Food (1) <-> FoodLike (N) 1:N 관계
-    @OneToMany(mappedBy = "food_like_id",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FoodLike> foodLikes = new ArrayList<>();
 
+    //mapping 관계 설정 Food (1) <-> FoodView (N) 1:N 관계
+    @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FoodView> foodViews = new ArrayList<>();
+
     //mapping 관계 설정 Food (1) <-> Recipe (N) 1:N 관계
-    @OneToMany(mappedBy = "recipe_id",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipes = new ArrayList<>();
 
-    //mapping 관계 설정 Food (N) <-> Review (1) N:1 관계
-    @ManyToOne
-    @JoinColumn(name = "review_id")
-    private Review review;
+    //mapping 관계 설정 Food (1) <-> Review (N) 1:N 관계
+    @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
     //mapping 관계 설정 Food (N) <-> FoodPhoto (1) N:1 관계
     @ManyToOne
     @JoinColumn(name = "food_photo_id")
     private FoodPhoto foodPhoto;
+
 
 
 

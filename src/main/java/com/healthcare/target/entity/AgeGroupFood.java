@@ -16,10 +16,10 @@ public class AgeGroupFood {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ageGroupFoodId;
 
-    //mapping 관계 설정 AgeGroupFood (N) <-> Target (1) N:1 관계
+    //mapping 관계 설정 AgeGroupFood (N) <-> AgeGroup (1) N:1 관계
     @ManyToOne
-    @JoinColumn(name = "target_id")
-    private Target target; //FK
+    @JoinColumn(name = "ageGroup_id")
+    private AgeGroup ageGroup; //FK
 
     //mapping 관계 설정 AgeGroupFood (N) <-> Food (1) N:1 관계
     @ManyToOne
