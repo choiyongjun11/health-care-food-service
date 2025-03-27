@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 @RestController
-@RequestMapping("/v1/members")
+@RequestMapping("/members")
 public class MemberController {
-    private final static String MEMBER_DEFAULT_URL = "/v1/members"; //url 주소
+    private final static String MEMBER_DEFAULT_URL = "/members"; //url 주소
     private final MemberService memberService;
     private final MemberMapper mapper;
 
