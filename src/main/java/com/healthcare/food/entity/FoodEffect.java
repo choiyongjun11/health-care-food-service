@@ -14,12 +14,13 @@ import javax.persistence.*;
 public class FoodEffect {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long foodEffectId;
+    private Long foodEffectId;
 
     //mapping 관계 설정 FoodEffect (N) <-> Food (1) N:1 관계
     @ManyToOne
     @JoinColumn(name = "food_id")
     private Food food; //FK
+
     //mapping 관계 설정 FoodEffect (N) <-> Effect (1) N:1 관계
     @ManyToOne
     @JoinColumn(name = "effect_id")

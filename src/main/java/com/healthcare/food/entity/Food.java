@@ -30,9 +30,15 @@ public class Food {
     @Column(nullable = false)
     private String foodName;
     @Column(nullable = false)
+    private String foodImageUrl; //type 바뀔 수 있음. 임의로 설정
+    @Column(nullable = false)
     private int viewCount;
     @Column(nullable = false)
     private LocalDateTime foodCreateDate = LocalDateTime.now(); // 등록 날짜 자동 설정
+
+    //mapping 관계 설정 Food (1) <-> Review (N) 1:N 관계
+    @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
     //mapping 관계 설정 Food (1) <-> AgeGroupFood (N) 1:N 관계
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -54,15 +60,9 @@ public class Food {
     @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipes = new ArrayList<>();
 
-    //mapping 관계 설정 Food (1) <-> Review (N) 1:N 관계
-    @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
-
-    //mapping 관계 설정 Food (N) <-> FoodPhoto (1) N:1 관계
-    @ManyToOne
-    @JoinColumn(name = "food_photo_id")
-    private FoodPhoto foodPhoto;
-
+    //mapping 관계 설정 Food(1) <-> FoodIngredient
+    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FoodIngredient> foodIngredient = new ArrayList<>();
 
 
 
