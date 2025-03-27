@@ -1,6 +1,6 @@
 package com.healthcare.food.controller;
 
-import com.healthcare.dto.SingleResponseDto;
+import com.healthcare.response.SingleResponseDto;
 import com.healthcare.food.dto.FoodDto;
 import com.healthcare.food.entity.Food;
 import com.healthcare.food.mapper.FoodMapper;

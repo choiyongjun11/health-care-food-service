@@ -1,6 +1,6 @@
 package com.healthcare.member.controller;
 
-import com.healthcare.dto.SingleResponseDto;
+import com.healthcare.response.SingleResponseDto;
 import com.healthcare.member.dto.MemberDto;
 import com.healthcare.member.entity.Member;
 import com.healthcare.member.mapper.MemberMapper;

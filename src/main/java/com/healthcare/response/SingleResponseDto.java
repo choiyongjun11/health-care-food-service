@@ -1,4 +1,4 @@
-package com.healthcare.dto;
+package com.healthcare.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
