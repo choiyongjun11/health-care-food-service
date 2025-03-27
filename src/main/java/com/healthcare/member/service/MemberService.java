@@ -50,10 +50,8 @@ public class MemberService {
     public Member updateMember(Member member) {
 
         Member findMember = findVerifiedMember(member.getMemberId());
-        Optional.ofNullable(member.getName())
-                .ifPresent(name -> findMember.setName(name));
-        Optional.ofNullable(member.getPhone())
-                .ifPresent(phone -> findMember.setPhone(phone));
+        Optional.ofNullable(member.getName()).ifPresent(name -> findMember.setName(name));
+        Optional.ofNullable(member.getPhone()).ifPresent(phone -> findMember.setPhone(phone));
 
         return memberRepository.save(findMember);
     }
@@ -73,6 +71,12 @@ public class MemberService {
         return findMember;
 
     }
+    //email 규칙 검증
+    public void verifyExistsEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if(member.isPresent())
+            throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
+    }
 
     //password null 인지 검증 기능
     public void saveMember(Member member) {
@@ -82,12 +86,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    //email 규칙 검증
-    public void verifyExistsEmail(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        if(member.isPresent())
-            throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
-    }
+
 
 
 

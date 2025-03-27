@@ -6,8 +6,6 @@ import com.healthcare.target.entity.AgeGroupFood;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
-import org.springframework.data.domain.Auditable;
 
 import javax.persistence.*;
 import java.awt.*;
