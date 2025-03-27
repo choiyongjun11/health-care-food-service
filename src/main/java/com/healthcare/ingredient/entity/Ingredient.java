@@ -1,13 +1,12 @@
 package com.healthcare.ingredient.entity;
 
-import com.healthcare.food.entity.FoodIngredientList;
+import com.healthcare.food.entity.FoodIngredient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +30,9 @@ public class Ingredient {
     @Column(nullable = false)
     private String storageMethod;
 
-    //mapping 관계 설정 Ingredient (1) <-> FoodIngredientList (N) 1:N 관계
+    //mapping 관계 설정 Ingredient (1) <-> FoodIngredient (N) 1:N 관계
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FoodIngredientList> foodIngredientLists = new ArrayList<>();
+    private List<FoodIngredient> foodIngredient = new ArrayList<>();
 
     //mapping 관계 설정 Ingredient (1) <-> IngredientAnalysis (N) 1:N 관계
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
