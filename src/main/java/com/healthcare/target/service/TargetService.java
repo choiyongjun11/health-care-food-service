@@ -1,4 +1,7 @@
-package com.healthcare.target.service;
-
-public class TargetService {
-}
+//package com.healthcare.target.service;
+//
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//public class TargetService {
+//}

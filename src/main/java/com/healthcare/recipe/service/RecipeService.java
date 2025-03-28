@@ -35,7 +35,7 @@ public class RecipeService {
     }
 
     public void deleteRecipe(long recipeId) {
-        Recipe recipe = findVerifiedRecipe(recipeId);
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(()-> new BusinessLogicException(ExceptionCode.NOT_FOUND));
         recipeRepository.delete(recipe);
     }
 
