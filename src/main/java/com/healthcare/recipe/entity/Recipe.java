@@ -4,9 +4,7 @@ import com.healthcare.food.entity.Food;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-
 
 @Getter
 @Setter
@@ -22,8 +20,13 @@ public class Recipe {
     @ManyToOne
     @JoinColumn(name="food_id")
     private Food food; //FK
+
+    @Column(nullable = false)
+    private String recipeName;
+
     @Column(nullable = false)
     private String process;
+
     @Column(nullable = false)
     private String difficulty;
 

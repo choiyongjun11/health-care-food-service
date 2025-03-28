@@ -20,7 +20,7 @@ public class FoodController {
     private final FoodService foodService;
     private final FoodMapper mapper;
 
-    public FoodController(FoodService foodService, FoodRepository foodRepository, FoodMapper mapper) {
+    public FoodController(FoodService foodService, FoodMapper mapper) {
         this.foodService = foodService;
         this.mapper = mapper;
 
@@ -34,7 +34,7 @@ public class FoodController {
         return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/{food-id}")
+    @PatchMapping("/{foods-id}")
     public ResponseEntity patchFood(@PathVariable("food-id") long foodId, @RequestBody FoodDto.Patch requestBody) {
       requestBody.setFoodId(foodId);
       Food food = foodService.updateFood(mapper.foodPatchToFood(requestBody));
@@ -42,13 +42,13 @@ public class FoodController {
 
     }
 
-    @GetMapping("/{food-id}")
+    @GetMapping("/{foods-id}")
     public ResponseEntity getFood(@PathVariable("food-id") long foodId) {
         Food food = foodService.findFood(foodId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.foodToFoodResponse(food)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{food-id}")
+    @DeleteMapping("/{foods-id}")
     public ResponseEntity deleteFood(@PathVariable("food-id") long foodId) {
         foodService.deleteFood(foodId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

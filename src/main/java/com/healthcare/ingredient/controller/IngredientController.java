@@ -33,20 +33,20 @@ public class IngredientController {
         return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/{ingredient-id}")
+    @PatchMapping("/{ingredients-id}")
     public ResponseEntity patchIngredient(@RequestBody @PathVariable("ingredient-id") long ingredientId, IngredientDto.Patch requestBody) {
         requestBody.setIngredientId(ingredientId);
         Ingredient ingredient = ingredientService.updateIngredient(mapper.ingredientPatchToIngredient(requestBody));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.ingredientToIngredientResponse(ingredient)),HttpStatus.OK);
     }
 
-    @GetMapping("/{ingredient-id}")
+    @GetMapping("/{ingredients-id}")
     public ResponseEntity getIngredient(@PathVariable("ingredient-id") long ingredientId) {
         Ingredient ingredient = ingredientService.findIngredient(ingredientId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.ingredientToIngredientResponse(ingredient)),HttpStatus.OK);
     }
 
-    @DeleteMapping("/{ingredient-id}")
+    @DeleteMapping("/{ingredients-id}")
     public ResponseEntity deleteIngredient(@PathVariable("ingredient-id") long ingredientId){
         ingredientService.deleteIngredient(ingredientId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

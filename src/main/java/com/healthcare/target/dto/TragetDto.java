@@ -1,4 +1,4 @@
-package com.healthcare.target.dto;
-
-public class TragetDto {
-}
+//package com.healthcare.target.dto;
+//
+//public class TragetDto {
+//}
