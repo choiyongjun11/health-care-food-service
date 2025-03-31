@@ -71,7 +71,7 @@ public class TargetService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
 
         // 해당 나이대에 맞는 AgeGroupFood 리스트 가져오기
-        List<AgeGroupFood> ageGroupFoods = ageGroupRepository.findByAgeGroup(ageGroup);
+        List<AgeGroupFood> ageGroupFoods = ageGroupFoodRepository.findByAgeGroup(ageGroup);
 
         // 음식 추천 리스트 변환
         List<FoodDto.Response> recommendedFoods = mapFoods(ageGroupFoods);

@@ -18,10 +18,10 @@ public interface TargetMapper {
 
     Target targetPostToTarget(TargetDto.Post targetDto);
     Target targetPatchToTarget(TargetDto.Patch targetDto);
-    @Mapping(source = "target.targetId", target = "targetId")
-    @Mapping(source = "target.ageGroup.ageGroupName", target = "ageGroupName")
-    @Mapping(source = "target.goalType.goalTypeCategory", target = "goalTypeCategory")
-    @Mapping(source = "target.goalType.goalTypeName", target = "goalTypeName")
+   // @Mapping(source = "target.targetId", target = "targetId")
+    //@Mapping(source = "target.ageGroup.ageGroupName", target = "ageGroupName")
+    //@Mapping(source = "target.goalType.goalTypeCategory", target = "goalTypeCategory")
+    //@Mapping(source = "target.goalType.goalTypeName", target = "goalTypeName")
     TargetDto.Response targetToResponseDto(Target target);
 
 
