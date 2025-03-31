@@ -19,11 +19,12 @@ public class IngredientController {
     private final static String INGREDIENT_DEFAULT_URL = "/ingredients";
     private final IngredientService ingredientService;
     private final IngredientMapper mapper;
-
     public IngredientController(IngredientService ingredientService, IngredientMapper mapper) {
         this.ingredientService = ingredientService;
         this.mapper = mapper;
+
     }
+
 
     @PostMapping
     public ResponseEntity postIngredient(@RequestBody IngredientDto.Post requestBody) {
@@ -33,8 +34,9 @@ public class IngredientController {
         return ResponseEntity.created(location).build();
     }
 
+
     @PatchMapping("/{ingredients-id}")
-    public ResponseEntity patchIngredient(@RequestBody @PathVariable("ingredient-id") long ingredientId, IngredientDto.Patch requestBody) {
+    public ResponseEntity patchIngredient(@PathVariable("ingredient-id") long ingredientId, @RequestBody IngredientDto.Patch requestBody) {
         requestBody.setIngredientId(ingredientId);
         Ingredient ingredient = ingredientService.updateIngredient(mapper.ingredientPatchToIngredient(requestBody));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.ingredientToIngredientResponse(ingredient)),HttpStatus.OK);
