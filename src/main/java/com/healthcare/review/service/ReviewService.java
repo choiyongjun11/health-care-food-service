@@ -12,6 +12,7 @@ import com.healthcare.review.mapper.ReviewMapper;
 import com.healthcare.review.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,11 +45,12 @@ public class ReviewService {
 
     }
 
-    public Review findReview(long reviewId) { //리뷰 조회
-        return reviewRepository.findById(reviewId)
-                .orElseThrow(()-> new BusinessLogicException(ExceptionCode.NOT_FOUND));
-
-    }
+//    public List<Review> findReviewsByFood(long foodId) {
+//        // 음식 존재 여부 확인
+//        Food food = verifyExistFood(foodId);
+//        // 특정 음식의 리뷰 리스트 반환
+//        return reviewRepository.findByFood(food);
+//    }
 
     public Review updateReview(Review review) {
         Review findReview = reviewRepository.findById(review.getReviewId())
@@ -83,6 +85,8 @@ public class ReviewService {
         Food findFood = food.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
         return findFood;
     }
+
+
 
 
 }

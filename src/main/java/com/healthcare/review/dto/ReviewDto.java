@@ -3,6 +3,7 @@ package com.healthcare.review.dto;
 import com.healthcare.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -12,26 +13,19 @@ public class ReviewDto {
     @AllArgsConstructor
     public static class Post {
         @NotNull
-        private long memberId; //리뷰 작성자
-        @NotNull
-        private long foodId; //리뷰대상 음식
-
+        private long memberId; //memberid 는 requestparam 으로(파라미터)로 전송
         @NotSpace
         private String content;
 
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch {
         private long reviewId;
-        @NotSpace
+        @NotSpace //수정했을 때 공백이면 안된다.
         private String content;
-
-        public void setReviewId(long reviewId) {
-            this.reviewId = reviewId;
-        }
-
 
     }
 

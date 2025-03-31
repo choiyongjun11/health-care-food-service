@@ -1,17 +1,21 @@
 package com.healthcare.review.controller;
 
+import com.healthcare.response.MultiResponseDto;
 import com.healthcare.response.SingleResponseDto;
 import com.healthcare.review.dto.ReviewDto;
 import com.healthcare.review.entity.Review;
 import com.healthcare.review.mapper.ReviewMapper;
 import com.healthcare.review.service.ReviewService;
 import com.healthcare.utils.UriCreator;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.net.URI;
+import java.util.List;
 
 
 @RestController
@@ -46,12 +50,11 @@ public class ReviewController {
 
     }
 
-    @GetMapping("/{reviews-id}")
-    public ResponseEntity getReview(@PathVariable("reviews-id") long reviewId) {
-        Review review = reviewService.findReview(reviewId);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)),HttpStatus.OK);
-
-    }
+    //음식에 대한 리뷰 조회
+//    @GetMapping
+//    public ResponseEntity getReviewByFood(@PathVariable("food-id") long foodId, Pageable pageable) {
+//
+//    }
 
     @DeleteMapping("/{reviews-id}")
     public ResponseEntity deleteReview(@PathVariable("reviews-id") long reviewId) {
