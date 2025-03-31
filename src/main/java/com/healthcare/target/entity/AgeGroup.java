@@ -17,7 +17,7 @@ import java.util.List;
 public class AgeGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ageGroupId;
+    private Long ageGroupId;
 
     @Column(nullable = false)
     private String ageGroupName;

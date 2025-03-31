@@ -17,7 +17,6 @@ public class IngredientService {
     public IngredientService(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
     }
-
     public Ingredient createIngredient(Ingredient ingredient) {
         verifyExistIngredient(ingredient.getIngredientName());
         Ingredient saveIngredient = ingredientRepository.save(ingredient);

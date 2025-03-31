@@ -3,7 +3,10 @@ package com.healthcare.food.dto;
 import com.healthcare.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class FoodDto {
     @Getter
@@ -21,7 +24,7 @@ public class FoodDto {
         private long foodId;
         @NotSpace
         private String foodName;
-        //private String foodImageUrl; image 구현할 때 주석 풀기
+        private String foodImageUrl;
 
         public void setFoodId(long foodId) {
             this.foodId = foodId;
@@ -34,9 +37,12 @@ public class FoodDto {
     public static class Response {
         private long foodId;
         private String foodName;
-        //private String foodImageUrl; image 구현할 때 주석 풀기
-        private int viewCount;
+        private String foodImageUrl;
+        private List<String> foodEffects;
+        private Integer viewCount;
         private LocalDateTime foodCreateDate;
+
+
 
     }
 

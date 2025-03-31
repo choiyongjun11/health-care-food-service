@@ -7,6 +7,7 @@ import com.healthcare.food.mapper.FoodMapper;
 import com.healthcare.food.repository.FoodRepository;
 import com.healthcare.food.service.FoodService;
 import com.healthcare.utils.UriCreator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
