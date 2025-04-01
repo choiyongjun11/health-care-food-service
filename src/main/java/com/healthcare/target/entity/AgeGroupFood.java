@@ -18,7 +18,7 @@ public class AgeGroupFood {
 
     //mapping 관계 설정 AgeGroupFood (N) <-> AgeGroup (1) N:1 관계
     @ManyToOne
-    @JoinColumn(name = "ageGroup_id")
+    @JoinColumn(name = "age_group_id")
     private AgeGroup ageGroup; //FK
 
     //mapping 관계 설정 AgeGroupFood (N) <-> Food (1) N:1 관계

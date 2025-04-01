@@ -9,9 +9,7 @@ import com.healthcare.target.entity.AgeGroup;
 import com.healthcare.target.entity.AgeGroupFood;
 import com.healthcare.target.entity.Target;
 import com.healthcare.target.mapper.TargetMapper;
-import com.healthcare.target.repository.AgeGroupFoodRepository;
-import com.healthcare.target.repository.AgeGroupRepository;
-import com.healthcare.target.repository.TargetRepository;
+import com.healthcare.target.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,17 +21,25 @@ public class TargetService {
     //저장소, entity, mapper
     //create,find, update, delete,
 
-    private final TargetRepository targetRepository;
     private final TargetMapper targetMapper;
+    private final TargetRepository targetRepository;
+    private final TargetEffectRepository targetEffectRepository;
+    private final GoalTypeRepository goalTypeRepository;
     private final AgeGroupFoodRepository ageGroupFoodRepository;
     private final AgeGroupRepository ageGroupRepository;
 
-    public TargetService(TargetRepository targetRepository, TargetMapper targetMapper, AgeGroupFoodRepository ageGroupFoodRepository, AgeGroupRepository ageGroupRepository) {
-        this.targetRepository = targetRepository;
+    public TargetService(TargetMapper targetMapper, TargetRepository targetRepository,
+                         TargetEffectRepository targetEffectRepository, GoalTypeRepository goalTypeRepository,
+                         AgeGroupFoodRepository ageGroupFoodRepository, AgeGroupRepository ageGroupRepository) {
+
         this.targetMapper = targetMapper;
+        this.targetRepository = targetRepository;
+        this.targetEffectRepository = targetEffectRepository;
+        this.goalTypeRepository = goalTypeRepository;
         this.ageGroupFoodRepository = ageGroupFoodRepository;
         this.ageGroupRepository = ageGroupRepository;
     }
+
 
     public Target createTarget(Target target) {
         return targetRepository.save(target);
@@ -45,8 +51,8 @@ public class TargetService {
 
     }
 
-    public Target updateTarget(long targetId) {
-        Target changeTarget = findVerifiedTarget(targetId);
+    public Target updateTarget(Target target) {
+        Target changeTarget = findVerifiedTarget(target.getTargetId());
         return targetRepository.save(changeTarget);
 
     }
@@ -71,7 +77,7 @@ public class TargetService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
 
         // 해당 나이대에 맞는 AgeGroupFood 리스트 가져오기
-        List<AgeGroupFood> ageGroupFoods = ageGroupRepository.findByAgeGroup(ageGroup);
+        List<AgeGroupFood> ageGroupFoods = ageGroupFoodRepository.findByAgeGroup(ageGroup);
 
         // 음식 추천 리스트 변환
         List<FoodDto.Response> recommendedFoods = mapFoods(ageGroupFoods);
@@ -80,7 +86,7 @@ public class TargetService {
         Target target = targetMapper.targetPostToTarget(post);
         Target savedTarget = targetRepository.save(target);
 
-        TargetDto.Response response = targetMapper.targetToResponseDto(savedTarget);
+        TargetDto.Response response = targetMapper.targetToResponse(savedTarget);
         response.setRecommendedFoods(recommendedFoods);
 
         return response;

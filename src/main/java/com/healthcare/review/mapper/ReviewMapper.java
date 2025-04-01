@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 public interface ReviewMapper {
     Review reviewPostToReview(ReviewDto.Post requestBody); //dto -> entity
     Review reviewPatchToReview(ReviewDto.Patch requestBody); //dto -> entity
-    @Mapping(source = "member.name", target = "memberName")
     ReviewDto.Response reviewToResponse(Review review); //entity -> dto
 
 }
+

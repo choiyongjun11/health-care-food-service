@@ -6,8 +6,6 @@ import com.healthcare.target.dto.TargetDto;
 import com.healthcare.target.entity.AgeGroupFood;
 import com.healthcare.target.entity.Target;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,11 +16,11 @@ public interface TargetMapper {
 
     Target targetPostToTarget(TargetDto.Post targetDto);
     Target targetPatchToTarget(TargetDto.Patch targetDto);
-    @Mapping(source = "target.targetId", target = "targetId")
-    @Mapping(source = "target.ageGroup.ageGroupName", target = "ageGroupName")
-    @Mapping(source = "target.goalType.goalTypeCategory", target = "goalTypeCategory")
-    @Mapping(source = "target.goalType.goalTypeName", target = "goalTypeName")
-    TargetDto.Response targetToResponseDto(Target target);
+   // @Mapping(source = "target.targetId", target = "targetId")
+    //@Mapping(source = "target.ageGroup.ageGroupName", target = "ageGroupName")
+    //@Mapping(source = "target.goalType.goalTypeCategory", target = "goalTypeCategory")
+    //@Mapping(source = "target.goalType.goalTypeName", target = "goalTypeName")
+    TargetDto.Response targetToResponse(Target target);
 
 
     //나이대별 음식 추천 리스트

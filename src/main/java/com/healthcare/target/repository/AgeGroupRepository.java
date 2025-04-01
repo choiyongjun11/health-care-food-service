@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface AgeGroupRepository extends JpaRepository<AgeGroup, Long> {
     Optional<AgeGroup> findByAgeGroupName(String ageGroupName);  // 나이대별 AgeGroup 찾기
-    List<AgeGroupFood> findByAgeGroup(AgeGroup ageGroup);
+    List<AgeGroup> findByAgeGroupId(Long ageGroupId);  // ageGroupId로 여러 AgeGroup 객체 찾기
 }

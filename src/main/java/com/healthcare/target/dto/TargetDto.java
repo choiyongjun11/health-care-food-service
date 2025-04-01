@@ -22,9 +22,14 @@ public class TargetDto {
     @Getter
     @AllArgsConstructor
     public static class Patch {
+        private Long targetId;
         private String ageGroupName;
         private String goalTypeCategory;
         private String goalTypeName;
+
+        public void setTargetId(long targetId){
+            this.targetId = targetId;
+        }
 
     }
 
