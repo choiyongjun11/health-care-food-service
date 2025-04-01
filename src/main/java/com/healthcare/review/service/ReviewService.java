@@ -10,6 +10,10 @@ import com.healthcare.review.dto.ReviewDto;
 import com.healthcare.review.entity.Review;
 import com.healthcare.review.mapper.ReviewMapper;
 import com.healthcare.review.repository.ReviewRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,43 +36,49 @@ public class ReviewService {
         this.mapper = mapper;
     }
 
-    public Review createReview (Review review) {
+    public Review createReview (Review review, long foodId, long memberId) {
         //1. 회원가입 한 사용자가 존재하는지 member 에 대한 검증이 필요합니다.
         //2. 특정 음식에 리뷰를 추가하는 것이기에 해당 음식이 존재하는지 확인이 필요합니다.
-        Member member = verifyExistMember(review.getMember().getMemberId());
-        Food food = verifyExistFood(review.getFood().getFoodId());
+        Member member = verifyExistMember(memberId);
+        Food food = verifyExistFood(foodId);
 
         review.setMember(member);
         review.setFood(food);
-        Review saveReview =reviewRepository.save(review);
-        return saveReview;
-
+        return reviewRepository.save(review);
+    }
+    //리뷰 목록 조회 (페이지네이션)
+    public Page<Review> getReviews(long foodId, int page, int size) {
+        verifyExistFood(foodId);
+        Pageable pageable = PageRequest.of(page -1, size); //page 번호 0 부터 시작
+        return reviewRepository.findByFood(foodId, pageable);
     }
 
-//    public List<Review> findReviewsByFood(long foodId) {
-//        // 음식 존재 여부 확인
-//        Food food = verifyExistFood(foodId);
-//        // 특정 음식의 리뷰 리스트 반환
-//        return reviewRepository.findByFood(food);
-//    }
+    //수정할 content에 null 인 경우도 고려하여 설정한다.
+    // 수정 시 리뷰 란에 빈칸 or 내용이 없으면 수정이 불가되어야한다.
 
-    public Review updateReview(Review review) {
+    public Review updateReview(Review review,long foodId) {
         Review findReview = reviewRepository.findById(review.getReviewId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
 
-        //수정할 content에 null 인 경우도 고려하여 설정한다.
-        // 수정 시 리뷰 란에 빈칸 or 내용이 없으면 수정이 불가되어야한다.
+        //food id 일치 여부 검증
+        if (findReview.getFood().getFoodId() != foodId) {
+            throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
+        }
+
         if (review.getContent() != null) {
             findReview.setContent(review.getContent());
         }
 
-        return reviewRepository.save(review);
-
+        return reviewRepository.save(findReview);
     }
 
-    public void deleteReview(long reviewId) {
+    public void deleteReview(long reviewId, long foodId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(()-> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+
+        if(review.getFood().getFoodId() != foodId) {
+            throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
+        }
         reviewRepository.delete(review);
     }
 

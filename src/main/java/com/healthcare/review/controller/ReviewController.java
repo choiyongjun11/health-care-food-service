@@ -7,21 +7,23 @@ import com.healthcare.review.entity.Review;
 import com.healthcare.review.mapper.ReviewMapper;
 import com.healthcare.review.service.ReviewService;
 import com.healthcare.utils.UriCreator;
+
+
+import lombok.Getter;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.net.URI;
+import java.nio.file.Path;
 import java.util.List;
 
 
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
-    private final static String REVIEWS_DEFAULT_URL = "/reviews";
+    private final static String REVIEWS_DEFAULT_URL = "/foods";
     private final ReviewService reviewService;
     private final ReviewMapper mapper;
 
@@ -32,34 +34,37 @@ public class ReviewController {
 
         //get. post, patch. delete
 
-    @PostMapping
-    public ResponseEntity postReview(@RequestBody ReviewDto.Post requestBody) {
+    @PostMapping("/{food-id}/reviews")
+    public ResponseEntity<ReviewDto.Response> postReview(@PathVariable("food-id") long foodId,
+                                                         @RequestBody ReviewDto.Post requestBody) {
         Review review = mapper.reviewPostToReview(requestBody);
-        Review createReview = reviewService.createReview(review);
-        URI location = UriCreator.createUri(REVIEWS_DEFAULT_URL, createReview.getReviewId());
-        return ResponseEntity.created(location).build();
+        long memberId = 1L;
+        Review createdReview = reviewService.createReview(review, foodId, memberId);
+        ReviewDto.Response response = mapper.reviewToResponse(createdReview);
+        response.setMessage("리뷰 등록이 완료되었습니다.");
 
+        URI location = URI.create(String.format("/foods/%d/reviews/%d", foodId, createdReview.getReviewId()));
+        return ResponseEntity.created(location).body(response);
     }
 
-    @PatchMapping("/{reviews-id}")
-    public ResponseEntity patchReview(@PathVariable("reviews-id") long reviewId, @RequestBody ReviewDto.Patch requestBody) {
+
+    @PatchMapping("/{food-id}/reviews/{review-id}")
+    public ResponseEntity<SingleResponseDto<ReviewDto.Response>> patchReview(@PathVariable("food-id") long foodId,
+                                                                             @PathVariable("review-id") long reviewId,
+                                                                             @RequestBody ReviewDto.Patch requestBody) {
         requestBody.setReviewId(reviewId);
-        Review review = reviewService.updateReview(mapper.reviewPatchToReview(requestBody));
-
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.reviewToResponse(review)),HttpStatus.OK);
-
+        Review review = mapper.reviewPatchToReview(requestBody); //등록된 리뷰의 dto -> entity로 받아옵니다.
+        Review updated = reviewService.updateReview(review, foodId);
+        ReviewDto.Response response = mapper.reviewToResponse(updated);
+        response.setMessage("리뷰 내용이 변경되었습니다.");
+        return ResponseEntity.ok(new SingleResponseDto<>(response));
     }
 
-    //음식에 대한 리뷰 조회
-//    @GetMapping
-//    public ResponseEntity getReviewByFood(@PathVariable("food-id") long foodId, Pageable pageable) {
-//
-//    }
-
-    @DeleteMapping("/{reviews-id}")
-    public ResponseEntity deleteReview(@PathVariable("reviews-id") long reviewId) {
-        reviewService.deleteReview(reviewId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{food-id}/reivews/{review-id}")
+    public ResponseEntity deleteReview(@PathVariable("food-id") long foodId,
+                                       @PathVariable("review-id") long reviewId) {
+        reviewService.deleteReview(reviewId, foodId);
+        return ResponseEntity.ok(new SingleResponseDto<>("해당 리뷰가 삭제되었습니다."));
 
     }
 

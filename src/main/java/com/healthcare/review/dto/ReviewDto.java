@@ -12,8 +12,6 @@ public class ReviewDto {
     @Getter
     @AllArgsConstructor
     public static class Post {
-        @NotNull
-        private long memberId; //memberid 는 requestparam 으로(파라미터)로 전송
         @NotSpace
         private String content;
 
@@ -24,16 +22,20 @@ public class ReviewDto {
     @AllArgsConstructor
     public static class Patch {
         private long reviewId;
-        @NotSpace //수정했을 때 공백이면 안된다.
+        @NotSpace //수정했을 때 공백이면 안된다. 공백일 경우 "다시 입력해주세요" 로 예외 발생
         private String content;
 
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Response {
+        private String message;
+        private long foodId;
         private long reviewId;
-        private String memberName; //작성한 리뷰에 사용자 이름 표시하여 식별
+        private long memberId;
+        private String memberName; //작성한 리뷰에 사용자 이름 표시하여 식별하기 위해 사용 ex) 홍길동
         private String content;
         private LocalDateTime reviewCreateDate;
 
