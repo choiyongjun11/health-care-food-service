@@ -93,7 +93,7 @@ public class SecurityConfiguration {
 
             JwtAuthenticationFilter jwtAuthenticationFilter =
                     new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/v1/auth/login");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
 
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
