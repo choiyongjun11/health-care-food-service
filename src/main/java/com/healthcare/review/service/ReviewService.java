@@ -46,6 +46,7 @@ public class ReviewService {
         review.setFood(food);
         return reviewRepository.save(review);
     }
+
     //리뷰 목록 조회 (페이지네이션)
     public Page<Review> getReviews(long foodId, int page, int size) {
         verifyExistFood(foodId);

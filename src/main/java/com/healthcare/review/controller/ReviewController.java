@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -47,6 +48,16 @@ public class ReviewController {
         return ResponseEntity.created(location).body(response);
     }
 
+    @GetMapping("/{food-id}/reviews")
+    public ResponseEntity<?> getReview(@PathVariable("food-id") long foodId,
+                                       @RequestParam int page, @RequestParam int size) {
+        Page<Review> reviewPage = reviewService.getReviews(foodId, page, size);
+        List<ReviewDto.Response> responses = reviewPage.getContent()
+                .stream().map(mapper::reviewToResponse).collect(Collectors.toList());
+
+        return ResponseEntity.ok(new MultiResponseDto<>(responses,reviewPage));
+
+    }
 
     @PatchMapping("/{food-id}/reviews/{review-id}")
     public ResponseEntity<SingleResponseDto<ReviewDto.Response>> patchReview(@PathVariable("food-id") long foodId,
