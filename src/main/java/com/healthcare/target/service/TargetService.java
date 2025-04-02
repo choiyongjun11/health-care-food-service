@@ -23,18 +23,16 @@ public class TargetService {
 
     private final TargetMapper targetMapper;
     private final TargetRepository targetRepository;
-    private final TargetEffectRepository targetEffectRepository;
     private final GoalTypeRepository goalTypeRepository;
     private final AgeGroupFoodRepository ageGroupFoodRepository;
     private final AgeGroupRepository ageGroupRepository;
 
     public TargetService(TargetMapper targetMapper, TargetRepository targetRepository,
-                         TargetEffectRepository targetEffectRepository, GoalTypeRepository goalTypeRepository,
-                         AgeGroupFoodRepository ageGroupFoodRepository, AgeGroupRepository ageGroupRepository) {
+                          GoalTypeRepository goalTypeRepository, AgeGroupFoodRepository ageGroupFoodRepository,
+                         AgeGroupRepository ageGroupRepository) {
 
         this.targetMapper = targetMapper;
         this.targetRepository = targetRepository;
-        this.targetEffectRepository = targetEffectRepository;
         this.goalTypeRepository = goalTypeRepository;
         this.ageGroupFoodRepository = ageGroupFoodRepository;
         this.ageGroupRepository = ageGroupRepository;
@@ -79,34 +77,34 @@ public class TargetService {
         // 해당 나이대에 맞는 AgeGroupFood 리스트 가져오기
         List<AgeGroupFood> ageGroupFoods = ageGroupFoodRepository.findByAgeGroup(ageGroup);
 
-        // 음식 추천 리스트 변환
-        List<FoodDto.Response> recommendedFoods = mapFoods(ageGroupFoods);
+//        // 음식 추천 리스트 변환
+//        List<FoodDto.Response> recommendedFoods = mapFoods(ageGroupFoods);
 
         // 목표 저장 및 반환
         Target target = targetMapper.targetPostToTarget(post);
         Target savedTarget = targetRepository.save(target);
 
         TargetDto.Response response = targetMapper.targetToResponse(savedTarget);
-        response.setRecommendedFoods(recommendedFoods);
+        //response.setRecommendedFoods(recommendedFoods);
 
         return response;
     }
 
-    private List<FoodDto.Response> mapFoods(List<AgeGroupFood> ageGroupFoods) {
-        return ageGroupFoods.stream().map(ageGroupFood -> {
-            Food food = ageGroupFood.getFood();
-            return new FoodDto.Response(
-                    food.getFoodId(),
-                    food.getFoodName(),
-                    food.getFoodImageUrl(),
-                    food.getFoodEffects().stream()
-                            .map(effect -> effect.getEffectDescription())
-                            .collect(Collectors.toList()),
-                    food.getViewCount(),
-                    food.getFoodCreateDate()
-            );
-        }).collect(Collectors.toList());
-    }
+//    private List<FoodDto.Response> mapFoods(List<AgeGroupFood> ageGroupFoods) {
+//        return ageGroupFoods.stream().map(ageGroupFood -> {
+//            Food food = ageGroupFood.getFood();
+//            return new FoodDto.Response(
+//                    food.getFoodId(),
+//                    food.getFoodName(),
+//                    food.getFoodImageUrl(),
+//                    food.getFoodRecommends().stream()
+//                            .map(effect -> effect.getEffectDescription())
+//                            .collect(Collectors.toList()),
+//                    food.getViewCount(),
+//                    food.getFoodCreateDate()
+//            );
+//        }).collect(Collectors.toList());
+//    }
 
 
 

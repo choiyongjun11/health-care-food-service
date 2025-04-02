@@ -19,6 +19,9 @@ public class FoodView {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long foodViewId;
 
+    @Column(nullable = false)
+    private Integer foodViewCount;
+
     //mapping 관계 설정 FoodView (N) <-> Member (1) N:1 관계
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -29,7 +32,6 @@ public class FoodView {
     @JoinColumn(name = "food_id")
     private Food food; //FK
 
-    @Column(nullable = false)
-    private LocalDateTime viewDate = LocalDateTime.now(); // 등록 날짜 자동 설정
+
 
 }

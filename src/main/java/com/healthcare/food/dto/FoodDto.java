@@ -4,7 +4,10 @@ import com.healthcare.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,35 +17,35 @@ public class FoodDto {
     public static class Post {
         @NotSpace
         private String foodName;
-        //private String foodImageUrl; image 구현할 때 주석 풀기
+        @NotSpace
+        private String foodImageUrl;
 
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch {
         private long foodId;
         @NotSpace
         private String foodName;
+        @NotSpace
         private String foodImageUrl;
-
-        public void setFoodId(long foodId) {
-            this.foodId = foodId;
-        }
 
     }
 
     @Getter
     @AllArgsConstructor //전체 생성자
     public static class Response {
+        private String message;
         private long foodId;
-        private String foodName;
-        private String foodImageUrl;
-        private List<String> foodEffects;
-        private Integer viewCount;
-        private LocalDateTime foodCreateDate;
+        private String foodName; //김밥
+        private String foodImageUrl; //images/kimbap.jpg
+        private Integer viewCount; // 11
+        private Integer likeCount; //45
+        private LocalDateTime foodCreateDate; //2025-04-02
 
-
+        //List 형태로 effect, reason 응답
 
     }
 

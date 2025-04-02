@@ -4,6 +4,9 @@ import com.healthcare.exception.BusinessLogicException;
 import com.healthcare.exception.ExceptionCode;
 import com.healthcare.food.entity.Food;
 import com.healthcare.food.repository.FoodRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -23,9 +26,15 @@ public class FoodService {
         return saveFood;
     }
 
+
     public Food findFood(long foodId) {
         return findVerifiedFood(foodId);
 
+    }
+
+    public Page<Food> findFoods (int page, int size) {
+        Pageable pageable = PageRequest.of(page-1,size);
+        return foodRepository.findAll(pageable);
     }
 
     public Food updateFood(Food food) {

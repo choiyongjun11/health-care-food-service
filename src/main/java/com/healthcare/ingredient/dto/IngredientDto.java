@@ -3,6 +3,8 @@ package com.healthcare.ingredient.dto;
 import com.healthcare.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
 public class IngredientDto {
@@ -23,6 +25,7 @@ public class IngredientDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch {
         @NotSpace
@@ -34,13 +37,9 @@ public class IngredientDto {
         @NotSpace
         private String ingredientOrigin;
         @NotSpace
-        private LocalDate expiryDate; //유통기한 형식 필요
+        private LocalDate expiryDate; //2025-04-02
         @NotSpace
         private String storageMethod;
-
-        public void setIngredientId(long ingredientId) {
-            this.ingredientId = ingredientId;
-        }
 
     }
 

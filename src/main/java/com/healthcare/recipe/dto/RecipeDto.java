@@ -1,46 +1,41 @@
 package com.healthcare.recipe.dto;
 
+import com.healthcare.recipe.entity.RecipeStep;
 import com.healthcare.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
+import org.apache.catalina.LifecycleState;
+
+import java.util.List;
 
 public class RecipeDto {
 
     @Getter
     @AllArgsConstructor
     public static class Post {
-        @NotSpace
-        private String recipeName;
-        @NotSpace
-        private String process;
-        @NotSpace
-        private String difficulty;
+       private List<RecipeStep> process;
+       private String difficulty;
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch {
-        private long recipeId;
-        @NotSpace
-        private String recipeName;
-        @NotSpace
-        private String process;
-        @NotSpace
+        private Long recipeId;
+        private List<RecipeStep> process;
         private String difficulty;
-
-        public void setRecipeId(long recipeId) {
-            this.recipeId = recipeId;
-        }
 
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Response {
-        private long recipeId;
-        private String recipeName;
-        private String process;
-        private String difficulty;
+      private String message;
+      private Long recipeId;
+      private List<RecipeStep> process;
+      private String difficulty;
     }
 
 }
