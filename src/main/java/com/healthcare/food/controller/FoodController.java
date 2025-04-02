@@ -1,5 +1,6 @@
 package com.healthcare.food.controller;
 
+import com.healthcare.response.MultiResponseDto;
 import com.healthcare.response.SingleResponseDto;
 import com.healthcare.food.dto.FoodDto;
 import com.healthcare.food.entity.Food;
@@ -8,11 +9,14 @@ import com.healthcare.food.repository.FoodRepository;
 import com.healthcare.food.service.FoodService;
 import com.healthcare.utils.UriCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/foods")
@@ -47,6 +51,17 @@ public class FoodController {
     public ResponseEntity getFood(@PathVariable("food-id") long foodId) {
         Food food = foodService.findFood(foodId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.foodToFoodResponse(food)), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getFoods(@RequestParam int page, @RequestParam int size) {
+        Page<Food> foodPage = foodService.findFoods(page,size);
+        List<FoodDto.Response> responses = foodPage.getContent()
+                .stream().map(mapper::foodToFoodResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new MultiResponseDto<>(responses, foodPage));
+
     }
 
     @DeleteMapping("/{foods-id}")

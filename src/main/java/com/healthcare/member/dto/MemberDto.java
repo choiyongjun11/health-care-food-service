@@ -67,7 +67,7 @@ public class MemberDto {
 
         private String phone;
 
-
     }
+
 
 }

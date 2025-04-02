@@ -59,11 +59,11 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/*/members").permitAll()  //권한에 따른 http 메서드 사용 1-1)
-                        .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER") //일반 사용자만 회원 정보를 수정할 수 있다.
-                        .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN") // 모든 회원 정보의 목록은 ADMIN 권한을 가진 사용만 접근이 가능하다.
-                        .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("ADMIN") // 특정 회원에 대한 정보 조회는
-                        .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/members").permitAll()  //권한에 따른 http 메서드 사용 1-1)
+                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER") //일반 사용자만 회원 정보를 수정할 수 있다.
+                        .antMatchers(HttpMethod.GET, "/members").hasRole("ADMIN") // 모든 회원 정보의 목록은 ADMIN 권한을 가진 사용만 접근이 가능하다.
+                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("ADMIN") // 특정 회원에 대한 정보 조회는
+                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
                         .anyRequest().permitAll() //서버 측으로 들어온는 모든 request에 대해서 접근을 허용한다.
                 );
         return http.build();

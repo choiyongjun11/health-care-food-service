@@ -13,7 +13,4 @@ public interface FoodMapper {
     Food foodPatchToFood(FoodDto.Patch requestBody);
     FoodDto.Response foodToFoodResponse(Food food);
 
-
-
-
 }

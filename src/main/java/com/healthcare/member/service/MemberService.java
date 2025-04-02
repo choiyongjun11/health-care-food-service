@@ -7,6 +7,10 @@ import com.healthcare.member.entity.Member;
 import com.healthcare.member.repository.MemberRepository;
 import org.springframework.context.ApplicationEventPublisher;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsPasswordService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +24,12 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder; //spring security jwt 토큰 인증을 위해
     private final AuthorityUtils authorityUtils; //spring security jwt 토큰 인증을 위해 우리가 만든 AuthorityUtils 클래스를 활용한다.
 
+
     public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, AuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
+
     }
 
     public Member createMember(Member member) {
@@ -41,10 +47,13 @@ public class MemberService {
         return savedMember;
     }
 
-
     public Member findMember(long memberId) {
         return findVerifiedMember(memberId);
+    }
 
+    public Page<Member> findMembers(int page, int size) {
+        Pageable pageable = PageRequest.of(page -1, size);
+        return memberRepository.findAll(pageable);
     }
 
     public Member updateMember(Member member) {
@@ -66,7 +75,6 @@ public class MemberService {
     //member id 로 검증
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
-
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
         return findMember;
 
@@ -76,14 +84,6 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
-    }
-
-    //password null 인지 검증 기능
-    public void saveMember(Member member) {
-        if (member.getPassword() == null || member.getPassword().isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty!");
-        }
-        memberRepository.save(member);
     }
 
 
