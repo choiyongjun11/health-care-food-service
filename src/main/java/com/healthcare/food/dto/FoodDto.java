@@ -14,7 +14,7 @@ public class FoodDto {
     public static class Post {
         @NotSpace
         private String foodName;
-        //private String foodImageUrl; image 구현할 때 주석 풀기
+        private String foodImageUrl;
 
     }
 
@@ -38,7 +38,6 @@ public class FoodDto {
         private long foodId;
         private String foodName;
         private String foodImageUrl;
-        private List<String> foodEffects;
         private Integer viewCount;
         private LocalDateTime foodCreateDate;
 

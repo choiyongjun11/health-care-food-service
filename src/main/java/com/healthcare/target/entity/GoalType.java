@@ -1,5 +1,6 @@
 package com.healthcare.target.entity;
 
+import com.healthcare.food.entity.FoodRecommend;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class GoalType {
     @OneToMany(mappedBy = "goalType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Target> targets = new ArrayList<>();
 
-    //mapping 관계 설정 GoalType (1) <-> TargetEffect (N) 1:N 관계
+    //mapping 관계 설정 GoalType (1) <-> FoodRecommend (N) 1:N 관계
     @OneToMany(mappedBy = "goalType", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TargetEffect> targetEffects = new ArrayList<>();
+    private List<FoodRecommend> foodRecommends = new ArrayList<>();
 }

@@ -26,12 +26,15 @@ public class RecipeController {
         this.mapper = mapper;
     }
 
-    @PostMapping
-    public ResponseEntity postRecipe(@RequestBody RecipeDto.Post requestBody) {
+    @PostMapping("/foods/{food-id}")
+    public ResponseEntity<RecipeDto.Response> postRecipe(@PathVariable("food-id") Long foodId,
+                                                         @RequestBody RecipeDto.Post requestBody) {
         Recipe recipe = mapper.RecipePostToRecipe(requestBody);
-        Recipe createRecipe = recipeService.createRecipe(recipe);
+        Recipe createRecipe = recipeService.createRecipe(recipe, foodId);
+        RecipeDto.Response response = mapper.recipeToRecipeResponse(createRecipe);
+        response.setMessage("레시피 등록이 완료되었습니다.");
         URI location = UriCreator.createUri(RECIPE_DEFAULT_URL, createRecipe.getRecipeId());
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(response);
     }
 
     @PatchMapping("/{recipes-id}")

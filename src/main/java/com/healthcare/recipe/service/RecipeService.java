@@ -2,26 +2,34 @@ package com.healthcare.recipe.service;
 
 import com.healthcare.exception.BusinessLogicException;
 import com.healthcare.exception.ExceptionCode;
+import com.healthcare.food.entity.Food;
+import com.healthcare.food.repository.FoodRepository;
 import com.healthcare.recipe.entity.Recipe;
 import com.healthcare.recipe.repository.RecipeRepository;
 import net.bytebuddy.description.type.TypeDescription;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ThemeResolver;
 
 import java.util.Optional;
 
 @Service
 public class RecipeService {
+    private final FoodRepository foodRepository;
+
     //create, find, update, delete
     private RecipeRepository recipeRepository;
 
-    public RecipeService(RecipeRepository recipeRepository) {
+    public RecipeService(RecipeRepository recipeRepository, FoodRepository foodRepository) {
         this.recipeRepository = recipeRepository;
+        this.foodRepository = foodRepository;
+
     }
 
-    public Recipe createRecipe(Recipe recipe) {
-        verifyExistRecipe(recipe.getRecipeName());
-        Recipe saveRecipe = recipeRepository.save(recipe);
-        return saveRecipe;
+    //음식 id가 있는지 확인 한 후에 레시피를 생성을 해야한다.
+   public Recipe createRecipe(Recipe recipe, Long foodId) {
+        Food food = foodRepository.findById(foodId).orElseThrow(()-> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+        recipe.setFood(food);
+        return recipeRepository.save(recipe);
     }
 
     public Recipe findRecipe(long recipeId) {
@@ -30,7 +38,14 @@ public class RecipeService {
 
     public Recipe updateRecipe(Recipe recipe) {
         Recipe findRecipe = findVerifiedRecipe(recipe.getRecipeId());
-        Optional.ofNullable(recipe.getRecipeName()).ifPresent(recipeName -> findRecipe.setRecipeName(recipeName));
+
+        if(recipe.getProcess() != null) {
+            findRecipe.setProcess(recipe.getProcess());
+        }
+        if(recipe.getDifficulty() != null) {
+            findRecipe.setDifficulty(recipe.getDifficulty());
+        }
+
         return recipeRepository.save(findRecipe);
     }
 
@@ -45,9 +60,7 @@ public class RecipeService {
         return findRecipe;
     }
 
-    private void verifyExistRecipe(String recipeName) { //생성 시 이미 존재하는지 확인하는 기능 (create)
-        Optional<Recipe> recipe = recipeRepository.findByRecipeName(recipeName);
-        if(recipe.isPresent()) throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
-    }
+
+
 
 }

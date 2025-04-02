@@ -20,7 +20,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
@@ -34,6 +33,9 @@ public class ReviewController {
     }
 
         //get. post, patch. delete
+
+    //리뷰: 이 음식 정말 맛있네요. 괜찮은 편이네요. 맛이 없어요. 재료 가격이 너무 비싸요. 능이백숙 건강한 맛이네요.
+
 
     @PostMapping("/{food-id}/reviews")
     public ResponseEntity<ReviewDto.Response> postReview(@PathVariable("food-id") long foodId,
