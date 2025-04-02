@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,15 +21,15 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ingredientId; //래퍼형
     @Column(nullable = false)
-    private String ingredientName;
+    private String ingredientName;  //감자
     @Column(nullable = false)
-    private String ingredientType;
+    private String ingredientType; //식량작물
     @Column(nullable = false)
-    private String ingredientOrigin;
+    private String ingredientOrigin; //국내산
     @Column(nullable = false)
-    private LocalDate expiryDate = LocalDate.now();
+    private LocalDate expiryDate; //2025-04-02
     @Column(nullable = false)
-    private String storageMethod;
+    private String storageMethod; //상온보관
 
     //mapping 관계 설정 Ingredient (1) <-> FoodIngredient (N) 1:N 관계
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)

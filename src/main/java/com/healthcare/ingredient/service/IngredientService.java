@@ -4,9 +4,11 @@ import com.healthcare.exception.BusinessLogicException;
 import com.healthcare.exception.ExceptionCode;
 import com.healthcare.ingredient.entity.Ingredient;
 import com.healthcare.ingredient.repository.IngredientRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -17,6 +19,7 @@ public class IngredientService {
     public IngredientService(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
     }
+
     public Ingredient createIngredient(Ingredient ingredient) {
         verifyExistIngredient(ingredient.getIngredientName());
         Ingredient saveIngredient = ingredientRepository.save(ingredient);
@@ -26,6 +29,11 @@ public class IngredientService {
     public Ingredient findIngredient(long ingredientId) {
         return findVerifiedIngredient(ingredientId);
 
+    }
+
+    public Page<Ingredient> findIngredients( int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return ingredientRepository.findAll(pageable);
     }
 
     public Ingredient updateIngredient(Ingredient ingredient) {
