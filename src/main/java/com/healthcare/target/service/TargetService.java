@@ -45,6 +45,9 @@ public class TargetService {
 
     public Target updateTarget(Target target) {
         Target changeTarget = findVerifiedTarget(target.getTargetId());
+        changeTarget.setAgeGroup(target.getAgeGroup());
+        changeTarget.setGoalType(target.getGoalType());
+        changeTarget.setTargetStatus(Target.TargetStatus.TARGET_CHANGED);
         return targetRepository.save(changeTarget);
     }
 

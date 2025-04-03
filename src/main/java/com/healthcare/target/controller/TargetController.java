@@ -37,9 +37,9 @@ public class TargetController {
     @PatchMapping("/{target-id}")
     public ResponseEntity patchTarget(@PathVariable("target-id") long targetId, @RequestBody TargetDto.Patch requestBody) {
         requestBody.setTargetId(targetId);
-        Target target = targetService.updateTarget(mapper.targetPatchToTarget(requestBody));
-        targetService.updateTarget(mapper.targetPatchToTarget(requestBody));
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.targetToResponse(target)),HttpStatus.OK);
+        Target target = mapper.targetPatchToTarget(requestBody);
+        Target updated = targetService.updateTarget(target);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.targetToResponse(updated)),HttpStatus.OK);
 
     }
 

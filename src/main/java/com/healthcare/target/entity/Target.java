@@ -47,7 +47,9 @@ public class Target {
     public enum TargetStatus {
         TARGET_DEACTIVED ("건강 목표 비활성화"),
         TARGET_REGISTERED ("건강 목표 활성화"),
+        TARGET_CHANGED("건강 목표 변경"),
         TARGET_DELETED("건강 목표 삭제");
+
         @Getter
         private String status;
         TargetStatus(String status) {
