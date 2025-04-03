@@ -26,7 +26,7 @@ public class TargetController {
     }
     //post, get, patch ,delete
 
-    @PostMapping("/target")
+    @PostMapping
     public ResponseEntity postTarget(@RequestBody TargetDto.Post requestBody) {
         Target target = mapper.targetPostToTarget(requestBody);
         Target createTarget = targetService.createTarget(target);

@@ -1,35 +1,28 @@
 package com.healthcare.target.dto;
 
-import com.healthcare.food.dto.FoodDto;
 import com.healthcare.target.entity.Target;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-
-import java.util.List;
-
 public class TargetDto {
     @Getter
     @AllArgsConstructor
     public static class Post {
-        private String ageGroupName;
-        private String goalTypeCategory;
-        private String goalTypeName;
+        private String ageGroupName; //청소년
+        private String goalTypeCategory; //체중관련
+        private String goalTypeName; //체중감소
 
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch {
         private Long targetId;
-        private String ageGroupName;
-        private String goalTypeCategory;
-        private String goalTypeName;
-
-        public void setTargetId(long targetId){
-            this.targetId = targetId;
-        }
+        private String ageGroupName; //성인
+        private String goalTypeCategory; //체중관련
+        private String goalTypeName; //체중증가
 
     }
 
@@ -37,17 +30,13 @@ public class TargetDto {
     @Setter
     @AllArgsConstructor
     public static class Response {
+        private String message;
         private Long targetId;
-        private String ageGroupName;
-        private String goalTypeCategory;
-        private String goalTypeName;
-        private String effectName;
-        private Target.TargetStatus targetStatus;
-        private List<FoodDto.Response> recommendedFoods;
-
+        private String ageGroupName; //성인
+        private String goalTypeCategory; //체중관련
+        private String goalTypeName; //체중증가
+        private Target.TargetStatus targetStatus; //목표 활성화
 
     }
-
-
 
 }

@@ -51,20 +51,4 @@ public class Target {
 
     }
 
-    public Target(AgeGroup ageGroup, GoalType goalType) {
-        this.ageGroup = ageGroup;
-        this.goalType = goalType;
-        this.targetStatus = TargetStatus.TARGET_REGISTERED;
-    }
-
-    public void updateGoal(GoalType goalType) {
-        this.goalType = goalType;
-    }
-
-    public void deleteGoal () {
-        this.targetStatus = TargetStatus.TARGET_DELETED;
-    }
-
-
-
 }
