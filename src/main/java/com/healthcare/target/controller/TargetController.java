@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/helath")
+@RequestMapping("/health")
 public class TargetController {
     private final static String TARGET_DEFAULT_URL = "health/target";
     private final TargetService targetService;
@@ -29,8 +29,8 @@ public class TargetController {
     @PostMapping
     public ResponseEntity postTarget(@RequestBody TargetDto.Post requestBody) {
         Target target = mapper.targetPostToTarget(requestBody);
-        Target createTarget = targetService.createTarget(target);
-        URI location = UriCreator.createUri(TARGET_DEFAULT_URL, createTarget.getTargetId());
+        Target createdTarget = targetService.createTarget(target);
+        URI location = UriCreator.createUri(TARGET_DEFAULT_URL, createdTarget.getTargetId());
         return ResponseEntity.created(location).build();
     }
 

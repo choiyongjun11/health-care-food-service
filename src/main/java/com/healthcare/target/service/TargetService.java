@@ -3,6 +3,8 @@ package com.healthcare.target.service;
 import com.healthcare.exception.BusinessLogicException;
 import com.healthcare.exception.ExceptionCode;
 
+import com.healthcare.target.entity.AgeGroup;
+import com.healthcare.target.entity.GoalType;
 import com.healthcare.target.entity.Target;
 import com.healthcare.target.mapper.TargetMapper;
 import com.healthcare.target.repository.*;
@@ -27,18 +29,23 @@ public class TargetService {
     }
 
     public Target createTarget(Target target) {
+        //중복 검증
+        Optional<Target> optionalTarget = targetRepository.findByGoalTypeAndAgeGroup(target.getGoalType(), target.getAgeGroup());
+        if (optionalTarget.isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
+        }
+        target.setTargetStatus(Target.TargetStatus.TARGET_REGISTERED);
         return targetRepository.save(target);
+
     }
 
     public Target findTarget(long targetId) {
         return findVerifiedTarget(targetId);
-
     }
 
     public Target updateTarget(Target target) {
         Target changeTarget = findVerifiedTarget(target.getTargetId());
         return targetRepository.save(changeTarget);
-
     }
 
     public void deleteTarget(long targetId) {
@@ -46,9 +53,10 @@ public class TargetService {
         targetRepository.delete(target);
     }
 
+
     //현재 존재하는지 확인하는 기능
     public Target findVerifiedTarget(long targetId) {
-        Optional<Target> target = targetRepository.findByTargetId(targetId);
+        Optional<Target> target = targetRepository.findByGoalTypeAndAgeGroup(new GoalType(),new AgeGroup());
         Target findTarget = target.orElseThrow(()-> new BusinessLogicException(ExceptionCode.NOT_FOUND));
         return findTarget;
     }
