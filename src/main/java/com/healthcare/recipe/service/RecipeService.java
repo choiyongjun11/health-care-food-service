@@ -25,10 +25,7 @@ public class RecipeService {
 
     }
 
-    //음식 id가 있는지 확인 한 후에 레시피를 생성을 해야한다.
-   public Recipe createRecipe(Recipe recipe, Long foodId) {
-        Food food = foodRepository.findById(foodId).orElseThrow(()-> new BusinessLogicException(ExceptionCode.NOT_FOUND));
-        recipe.setFood(food);
+   public Recipe createRecipe(Recipe recipe) {
         return recipeRepository.save(recipe);
     }
 
@@ -59,6 +56,8 @@ public class RecipeService {
         Recipe findRecipe = optionalRecipe.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
         return findRecipe;
     }
+
+    //생성 시 이미 존재한지 확인 하는 방법이 필요할까나.
 
 
 

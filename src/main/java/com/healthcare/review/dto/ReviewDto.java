@@ -12,7 +12,6 @@ public class ReviewDto {
     @Getter
     @AllArgsConstructor
     public static class Post {
-        @NotSpace
         private String content;
 
     }
@@ -31,7 +30,6 @@ public class ReviewDto {
     @Setter
     @AllArgsConstructor
     public static class Response {
-        private String message;
         private long foodId;
         private long reviewId;
         private long memberId;

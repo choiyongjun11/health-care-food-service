@@ -32,7 +32,6 @@ public class RecipeDto {
     @Setter
     @AllArgsConstructor
     public static class Response {
-      private String message;
       private Long recipeId;
       private List<RecipeStep> process;
       private String difficulty;

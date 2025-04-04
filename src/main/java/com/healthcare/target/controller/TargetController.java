@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/helath")
+@RequestMapping("/health/target")
 public class TargetController {
     private final static String TARGET_DEFAULT_URL = "health/target";
     private final TargetService targetService;
@@ -25,21 +25,21 @@ public class TargetController {
         this.mapper = mapper;
     }
     //post, get, patch ,delete
-
+    //health/target
     @PostMapping
     public ResponseEntity postTarget(@RequestBody TargetDto.Post requestBody) {
         Target target = mapper.targetPostToTarget(requestBody);
-        Target createTarget = targetService.createTarget(target);
-        URI location = UriCreator.createUri(TARGET_DEFAULT_URL, createTarget.getTargetId());
+        Target createdTarget = targetService.createTarget(target);
+        URI location = UriCreator.createUri(TARGET_DEFAULT_URL, createdTarget.getTargetId());
         return ResponseEntity.created(location).build();
     }
 
     @PatchMapping("/{target-id}")
     public ResponseEntity patchTarget(@PathVariable("target-id") long targetId, @RequestBody TargetDto.Patch requestBody) {
         requestBody.setTargetId(targetId);
-        Target target = targetService.updateTarget(mapper.targetPatchToTarget(requestBody));
-        targetService.updateTarget(mapper.targetPatchToTarget(requestBody));
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.targetToResponse(target)),HttpStatus.OK);
+        Target target = mapper.targetPatchToTarget(requestBody);
+        Target updated = targetService.updateTarget(target);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.targetToResponse(updated)),HttpStatus.OK);
 
     }
 

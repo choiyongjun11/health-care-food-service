@@ -39,7 +39,7 @@ public class FoodController {
         return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/{foods-id}")
+    @PatchMapping("/{food-id}")
     public ResponseEntity patchFood(@PathVariable("food-id") long foodId, @RequestBody FoodDto.Patch requestBody) {
       requestBody.setFoodId(foodId);
       Food food = foodService.updateFood(mapper.foodPatchToFood(requestBody));
@@ -47,7 +47,7 @@ public class FoodController {
 
     }
 
-    @GetMapping("/{foods-id}")
+    @GetMapping("/{food-id}")
     public ResponseEntity getFood(@PathVariable("food-id") long foodId) {
         Food food = foodService.findFood(foodId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.foodToFoodResponse(food)), HttpStatus.OK);
@@ -64,7 +64,7 @@ public class FoodController {
 
     }
 
-    @DeleteMapping("/{foods-id}")
+    @DeleteMapping("/{food-id}")
     public ResponseEntity deleteFood(@PathVariable("food-id") long foodId) {
         foodService.deleteFood(foodId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
