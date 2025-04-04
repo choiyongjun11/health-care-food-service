@@ -30,7 +30,7 @@ public class TargetDto {
     @Setter
     @AllArgsConstructor
     public static class Response {
-        private String message;
+
         private Long targetId;
         private String ageGroupName; //성인
         private String goalTypeCategory; //체중관련

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -39,6 +40,11 @@ public class IngredientService {
     public Ingredient updateIngredient(Ingredient ingredient) {
         Ingredient findIngredient = findVerifiedIngredient(ingredient.getIngredientId());
         Optional.ofNullable(ingredient.getIngredientName()).ifPresent(ingredientName -> findIngredient.setIngredientName(ingredientName));
+        Optional.ofNullable(ingredient.getIngredientType()).ifPresent(ingredientType -> findIngredient.setIngredientType(ingredientType));
+        Optional.ofNullable(ingredient.getIngredientOrigin()).ifPresent(ingredientOrigin -> findIngredient.setIngredientOrigin(ingredientOrigin));
+        Optional.ofNullable(ingredient.getExpiryDate()).ifPresent(expiryDate -> findIngredient.setExpiryDate(expiryDate));
+        Optional.ofNullable(ingredient.getStorageMethod()).ifPresent(storageMethod -> findIngredient.setStorageMethod(storageMethod));
+
         return ingredientRepository.save(findIngredient);
 
     }

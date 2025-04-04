@@ -37,11 +37,9 @@ public class ReviewService {
     }
 
     public Review createReview (Review review, long foodId, long memberId) {
-        //1. 회원가입 한 사용자가 존재하는지 member 에 대한 검증이 필요합니다.
-        //2. 특정 음식에 리뷰를 추가하는 것이기에 해당 음식이 존재하는지 확인이 필요합니다.
+        //특정 음식에 리뷰를 추가하는 것이기에 해당 음식이 존재하는지 확인이 필요합니다.
         Member member = verifyExistMember(memberId);
         Food food = verifyExistFood(foodId);
-
         review.setMember(member);
         review.setFood(food);
         return reviewRepository.save(review);

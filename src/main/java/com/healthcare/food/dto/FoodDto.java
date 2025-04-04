@@ -1,5 +1,6 @@
 package com.healthcare.food.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.healthcare.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,12 +38,13 @@ public class FoodDto {
     @Getter
     @AllArgsConstructor //전체 생성자
     public static class Response {
-        private String message;
+
         private long foodId;
         private String foodName; //김밥
         private String foodImageUrl; //images/kimbap.jpg
         private Integer viewCount; // 11
         private Integer likeCount; //45
+        @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDateTime foodCreateDate; //2025-04-02
 
         //List 형태로 effect, reason 응답

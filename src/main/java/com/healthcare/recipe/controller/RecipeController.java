@@ -26,31 +26,28 @@ public class RecipeController {
         this.mapper = mapper;
     }
 
-    @PostMapping("/foods/{food-id}")
-    public ResponseEntity<RecipeDto.Response> postRecipe(@PathVariable("food-id") Long foodId,
-                                                         @RequestBody RecipeDto.Post requestBody) {
-        Recipe recipe = mapper.RecipePostToRecipe(requestBody);
-        Recipe createRecipe = recipeService.createRecipe(recipe, foodId);
-        RecipeDto.Response response = mapper.recipeToRecipeResponse(createRecipe);
-        response.setMessage("레시피 등록이 완료되었습니다.");
-        URI location = UriCreator.createUri(RECIPE_DEFAULT_URL, createRecipe.getRecipeId());
-        return ResponseEntity.created(location).body(response);
+    @PostMapping
+    public ResponseEntity postRecipe(@RequestBody RecipeDto.Post requestBody) {
+      Recipe recipe = mapper.RecipePostToRecipe(requestBody);
+      Recipe createdRecipe = recipeService.createRecipe(recipe);
+      URI location = UriCreator.createUri(RECIPE_DEFAULT_URL, createdRecipe.getRecipeId());
+      return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/{recipes-id}")
+    @PatchMapping("/{recipe-id}")
     public ResponseEntity patchRecipe(@PathVariable("recipe-id") long recipeId,  @RequestBody RecipeDto.Patch requestBody) {
         requestBody.setRecipeId(recipeId);
         Recipe recipe = recipeService.updateRecipe(mapper.RecipePatchToRecipe(requestBody));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.recipeToRecipeResponse(recipe)),HttpStatus.OK);
     }
 
-    @GetMapping("/{recipes-id}")
+    @GetMapping("/{recipe-id}")
     public ResponseEntity getRecipe(@PathVariable("recipe-id") long recipeId) {
         Recipe recipe = recipeService.findRecipe(recipeId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.recipeToRecipeResponse(recipe)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{recipes-id}")
+    @DeleteMapping("/{recipe-id}")
     public ResponseEntity deleteRecipe(@PathVariable("recipe-id") long recipeId) {
         recipeService.deleteRecipe(recipeId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

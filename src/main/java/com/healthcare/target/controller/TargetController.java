@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/health")
+@RequestMapping("/health/target")
 public class TargetController {
     private final static String TARGET_DEFAULT_URL = "health/target";
     private final TargetService targetService;
@@ -25,7 +25,7 @@ public class TargetController {
         this.mapper = mapper;
     }
     //post, get, patch ,delete
-
+    //health/target
     @PostMapping
     public ResponseEntity postTarget(@RequestBody TargetDto.Post requestBody) {
         Target target = mapper.targetPostToTarget(requestBody);

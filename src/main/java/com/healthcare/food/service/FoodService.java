@@ -22,8 +22,8 @@ public class FoodService {
 
     public Food createFood(Food food) {
         verifyExistFood(food.getFoodName());
-        Food saveFood = foodRepository.save(food);
-        return saveFood;
+         return foodRepository.save(food);
+
     }
 
 
@@ -40,6 +40,7 @@ public class FoodService {
     public Food updateFood(Food food) {
         Food findFood = findVerifiedFood(food.getFoodId());
         Optional.ofNullable(food.getFoodName()).ifPresent(foodName -> findFood.setFoodName(foodName));
+        Optional.ofNullable(food.getFoodImageUrl()).ifPresent(imageUrl -> findFood.setFoodImageUrl(imageUrl));
         return foodRepository.save(findFood);
 
     }
