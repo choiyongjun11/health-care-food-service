@@ -9,9 +9,9 @@ public class TargetDto {
     @Getter
     @AllArgsConstructor
     public static class Post {
-        private String ageGroupName; //청소년
         private String goalTypeCategory; //체중관련
         private String goalTypeName; //체중감소
+        private String ageGroupName; //청소년
 
     }
 

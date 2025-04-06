@@ -41,6 +41,7 @@ public class Target {
     @JoinColumn(name = "age_group_id")
     private AgeGroup ageGroup; //FK 키
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TargetStatus targetStatus = TargetStatus.TARGET_DEACTIVED; //enum 으로 구현
 

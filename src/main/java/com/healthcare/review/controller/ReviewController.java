@@ -6,17 +6,11 @@ import com.healthcare.review.dto.ReviewDto;
 import com.healthcare.review.entity.Review;
 import com.healthcare.review.mapper.ReviewMapper;
 import com.healthcare.review.service.ReviewService;
-import com.healthcare.utils.UriCreator;
-
-
-import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,9 +24,7 @@ public class ReviewController {
         this.reviewService = reviewService;
         this.mapper = mapper;
     }
-
-        //get. post, patch. delete
-
+    //get. post, patch. delete
 
     //리뷰: 이 음식 정말 맛있네요. 괜찮은 편이네요. 맛이 없어요. 재료 가격이 너무 비싸요. 능이백숙 건강한 맛이네요.
 
@@ -45,7 +37,6 @@ public class ReviewController {
         Review review = mapper.reviewPostToReview(requestBody);
         Review createdReview = reviewService.createReview(review, foodId, memberId);
         ReviewDto.Response response = mapper.reviewToResponse(createdReview);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(new SingleResponseDto<>(response));
     }
 
@@ -70,9 +61,11 @@ public class ReviewController {
 
     }
 
-    @DeleteMapping("/{food-id}/reivews/{review-id}")
-    public ResponseEntity deleteReview(@PathVariable("food-id") long foodId,
-                                       @PathVariable("review-id") long reviewId) {
+    @DeleteMapping("/{food-id}/reviews/{review-id}")
+    public ResponseEntity<Void> deleteReview(
+            @PathVariable("food-id") long foodId,
+            @PathVariable("review-id") long reviewId) {
+
         reviewService.deleteReview(reviewId, foodId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

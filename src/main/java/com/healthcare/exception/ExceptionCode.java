@@ -1,6 +1,7 @@
 package com.healthcare.exception;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 /*
 HTTP 상태 코드 (4XX 코드 , 5XX 코드) 개념
@@ -114,6 +115,10 @@ public enum ExceptionCode  {
     INSUFFICIENT_STORAGE(507, "Insufficient Storage"),
     LOOP_DETECTED(508, "Loop Detected"),
     NOT_EXTENDED(510, "Not Extended"),
+    DUPLICATE_TARGET(400, "이미 등록된 목표입니다."),
+    NOT_FOUND_GOALTYPE(404, "해당 목표 유형을 찾을 수 없습니다."),
+    NOT_FOUND_AGEGROUP(404, "해당 연령대를 찾을 수 없습니다."),
+    RECIPE_ALREADY_EXISTS(409, "레시피가 이미 존재합니다."),
     NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required"),
     NETWORK_CONNECT_TIMEOUT_ERROR(599, "Network Connect Timeout Error");
 

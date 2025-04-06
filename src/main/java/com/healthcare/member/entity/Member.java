@@ -46,7 +46,6 @@ public class Member {
         this.phone = phone;
     }
 
-
     /*
      cascade 영속성 정의, 부모가 자식에게 영속성 전달. 부모 엔터티가 삭제되면 자식 엔터티도 삭제된다.
     영속성 전이 모두 적용 - CascadeType.ALL

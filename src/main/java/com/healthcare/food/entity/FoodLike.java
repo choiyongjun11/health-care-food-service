@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -33,6 +34,6 @@ public class FoodLike {
     private long likeCount;
 
     @Column(nullable = false)
-    private LocalDateTime likeDate = LocalDateTime.now(); // 등록 날짜 자동 설정
+    private LocalDate likeDate = LocalDate.now(); // 등록 날짜 자동 설정
 
 }

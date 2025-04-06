@@ -45,7 +45,7 @@ public class FoodDto {
         private Integer viewCount; // 11
         private Integer likeCount; //45
         @JsonFormat(pattern = "yyyy-MM-dd")
-        private LocalDateTime foodCreateDate; //2025-04-02
+        private LocalDate foodCreateDate; //2025-04-02
 
         //List 형태로 effect, reason 응답
 

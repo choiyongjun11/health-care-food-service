@@ -47,9 +47,8 @@ public class ReviewService {
 
     //리뷰 목록 조회 (페이지네이션)
     public Page<Review> getReviews(long foodId, int page, int size) {
-        verifyExistFood(foodId);
-        Pageable pageable = PageRequest.of(page -1, size); //page 번호 0 부터 시작
-        return reviewRepository.findByFood(foodId, pageable);
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return reviewRepository.findByFood_FoodId(foodId, pageable);
     }
 
     //수정할 content에 null 인 경우도 고려하여 설정한다.
@@ -73,11 +72,12 @@ public class ReviewService {
 
     public void deleteReview(long reviewId, long foodId) {
         Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(()-> new BusinessLogicException(ExceptionCode.NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
 
-        if(review.getFood().getFoodId() != foodId) {
+        if (review.getFood().getFoodId() != foodId) {
             throw new BusinessLogicException(ExceptionCode.NOT_FOUND);
         }
+
         reviewRepository.delete(review);
     }
 
@@ -94,8 +94,5 @@ public class ReviewService {
         Food findFood = food.orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND));
         return findFood;
     }
-
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.healthcare.recipe.controller;
 
+import com.healthcare.food.entity.Food;
 import com.healthcare.recipe.dto.RecipeDto;
 import com.healthcare.recipe.entity.Recipe;
 import com.healthcare.recipe.mapper.RecipeMapper;
@@ -12,10 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/recipes")
+@RequestMapping("/foods")
 public class RecipeController {
     private final static String RECIPE_DEFAULT_URL = "/recipes";
     private final RecipeService recipeService;
@@ -26,32 +28,35 @@ public class RecipeController {
         this.mapper = mapper;
     }
 
-    @PostMapping
-    public ResponseEntity postRecipe(@RequestBody RecipeDto.Post requestBody) {
-      Recipe recipe = mapper.RecipePostToRecipe(requestBody);
-      Recipe createdRecipe = recipeService.createRecipe(recipe);
-      URI location = UriCreator.createUri(RECIPE_DEFAULT_URL, createdRecipe.getRecipeId());
-      return ResponseEntity.created(location).build();
+    @PostMapping("/foods/{food-id}/recipes")
+    public ResponseEntity postRecipe(@PathVariable("food-id") Long foodId,
+                                     @RequestBody @Valid RecipeDto.Post requestBody) {
+        Recipe recipe = mapper.RecipePostToRecipe(requestBody); //
+        Recipe createdRecipe = recipeService.createRecipe(recipe, foodId);
+        URI location = UriCreator.createUri(RECIPE_DEFAULT_URL, createdRecipe.getRecipeId());
+        return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/{recipe-id}")
-    public ResponseEntity patchRecipe(@PathVariable("recipe-id") long recipeId,  @RequestBody RecipeDto.Patch requestBody) {
+    @PatchMapping("/{food-id}/recipes/{recipe-id}")
+    public ResponseEntity patchRecipe(@PathVariable("food-id") long foodId,
+                                      @PathVariable("recipe-id") long recipeId,
+                                      @RequestBody @Valid RecipeDto.Patch requestBody) {
         requestBody.setRecipeId(recipeId);
-        Recipe recipe = recipeService.updateRecipe(mapper.RecipePatchToRecipe(requestBody));
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.recipeToRecipeResponse(recipe)),HttpStatus.OK);
+        Recipe updated = recipeService.updateRecipe(mapper.RecipePatchToRecipe(requestBody), foodId);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.recipeToRecipeResponse(updated)), HttpStatus.OK);
     }
 
-    @GetMapping("/{recipe-id}")
-    public ResponseEntity getRecipe(@PathVariable("recipe-id") long recipeId) {
-        Recipe recipe = recipeService.findRecipe(recipeId);
+    @GetMapping("/{food-id}/recipes")
+    public ResponseEntity getRecipeByFood(@PathVariable("food-id") long foodId) {
+        Recipe recipe = recipeService.findRecipeByFoodId(foodId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.recipeToRecipeResponse(recipe)), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{recipe-id}")
-    public ResponseEntity deleteRecipe(@PathVariable("recipe-id") long recipeId) {
-        recipeService.deleteRecipe(recipeId);
+    @DeleteMapping("/{food-id}/recipes/{recipe-id}")
+    public ResponseEntity deleteRecipe(@PathVariable("food-id") long foodId,
+                                       @PathVariable("recipe-id") long recipeId) {
+        recipeService.deleteRecipe(recipeId, foodId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
     }
 
 }
