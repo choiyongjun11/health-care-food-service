@@ -10,7 +10,6 @@ import com.healthcare.utils.UriCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 
 @RestController
@@ -24,30 +23,34 @@ public class TargetController {
         this.targetService = targetService;
         this.mapper = mapper;
     }
+
     //post, get, patch ,delete
     //health/target
+
     @PostMapping
     public ResponseEntity postTarget(@RequestBody TargetDto.Post requestBody) {
-        Target target = mapper.targetPostToTarget(requestBody);
-        Target createdTarget = targetService.createTarget(target);
+
+        Target createdTarget = targetService.createTarget(requestBody);
         URI location = UriCreator.createUri(TARGET_DEFAULT_URL, createdTarget.getTargetId());
         return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/{target-id}")
-    public ResponseEntity patchTarget(@PathVariable("target-id") long targetId, @RequestBody TargetDto.Patch requestBody) {
-        requestBody.setTargetId(targetId);
-        Target target = mapper.targetPatchToTarget(requestBody);
-        Target updated = targetService.updateTarget(target);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.targetToResponse(updated)),HttpStatus.OK);
-
+    @GetMapping("/{target-id}")
+    public ResponseEntity<SingleResponseDto<TargetDto.Response>> getTarget(@PathVariable("target-id") long targetId) {
+        Target target = targetService.findTarget(targetId);
+        TargetDto.Response response = mapper.targetToResponse(target);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
-    @GetMapping("/{target-id}")
-    public ResponseEntity getTarget(@PathVariable("target-id") long targetId) {
-        Target target = targetService.findTarget(targetId);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.targetToResponse(target)), HttpStatus.OK);
+    @PatchMapping("/{target-id}")
+    public ResponseEntity<SingleResponseDto<TargetDto.Response>> patchTarget(
+            @PathVariable("target-id") long targetId,
+            @RequestBody TargetDto.Patch requestBody) {
 
+        requestBody.setTargetId(targetId);
+        Target updatedTarget = targetService.updateTarget(requestBody);
+        TargetDto.Response response = mapper.targetToResponse(updatedTarget);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @DeleteMapping("/{target-id}")
@@ -55,7 +58,6 @@ public class TargetController {
         targetService.deleteTarget(targetId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -31,11 +32,7 @@ public class Review {
     private String content;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime reviewCreateDate;
+    private LocalDate reviewCreateDate = LocalDate.now();
 
-    @PrePersist //등록 날짜 자동 설정
-    protected void onCreate() {
-        this.reviewCreateDate = LocalDateTime.now();
-    }
 
 }

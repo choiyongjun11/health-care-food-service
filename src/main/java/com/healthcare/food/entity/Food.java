@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Food {
     private String foodImageUrl; //type 바뀔 수 있음. 임의로 설정
 
     @Column(nullable = false)
-    private LocalDateTime foodCreateDate = LocalDateTime.now(); // 등록 날짜 자동 설정
+    private LocalDate foodCreateDate = LocalDate.now(); // 등록 날짜 자동 설정
 
     //mapping 관계 설정 Food (1) <-> Review (N) 1:N 관계
     @OneToMany(mappedBy = "food",cascade = CascadeType.ALL, orphanRemoval = true)

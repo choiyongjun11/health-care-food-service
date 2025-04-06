@@ -24,18 +24,21 @@ public class Recipe {
     @JoinColumn(name="food_id")
     private Food food; //FK
 
-    @ElementCollection
-    @CollectionTable(name = "recipe_process", joinColumns = @JoinColumn(name = "recipe_id"))
+    //mapping 관계설정 Recipe (1) <-> RecipeStep(N) 1:N 관계
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeStep> process = new ArrayList<>();
 
-    private Difficulty difficulty = Difficulty.DIFFICULTY_LEVEL_ONE; //default : 초급
-    public enum Difficulty {
-        DIFFICULTY_LEVEL_ONE("초급"),
-        DIFFICULTY_LEVEL_TWO ("중급"),
-        DIFFICULTY_LEVEL_THREE("상급");
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Difficulty difficulty = Difficulty.DIFFICULTY_LEVEL_ONE;
 
-        @Getter
-        private String status;
+    public enum Difficulty {
+        DIFFICULTY_LEVEL_ONE("레벨1"),
+        DIFFICULTY_LEVEL_TWO("레벨2"),
+        DIFFICULTY_LEVEL_THREE("레벨3");
+
+        private final String status;
+
         Difficulty(String status) {
             this.status = status;
         }
