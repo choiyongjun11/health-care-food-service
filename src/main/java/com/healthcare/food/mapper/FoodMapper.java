@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 public interface FoodMapper {
     Food foodPostToFood(FoodDto.Post requestBody);
     Food foodPatchToFood(FoodDto.Patch requestBody);
+
+
     FoodDto.Response foodToFoodResponse(Food food);
 
 }

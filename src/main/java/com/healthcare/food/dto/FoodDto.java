@@ -36,6 +36,7 @@ public class FoodDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor //전체 생성자
     public static class Response {
 
