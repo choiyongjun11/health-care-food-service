@@ -3,7 +3,9 @@ package com.healthcare.food.service;
 import com.healthcare.exception.BusinessLogicException;
 import com.healthcare.exception.ExceptionCode;
 import com.healthcare.food.entity.Food;
+import com.healthcare.food.repository.FoodLikeRepository;
 import com.healthcare.food.repository.FoodRepository;
+import com.healthcare.food.repository.FoodViewRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,11 +15,15 @@ import java.util.Optional;
 
 @Service
 public class FoodService {
+    private final FoodLikeRepository foodLikeRepository;
+    private final FoodViewRepository foodViewRepository;
     //create, find, update, delete
     private FoodRepository foodRepository;
 
-    public FoodService(FoodRepository foodRepository) {
+    public FoodService(FoodRepository foodRepository, FoodLikeRepository foodLikeRepository, FoodViewRepository foodViewRepository) {
         this.foodRepository = foodRepository;
+        this.foodLikeRepository = foodLikeRepository;
+        this.foodViewRepository = foodViewRepository;
     }
 
     public Food createFood(Food food) {
@@ -25,7 +31,6 @@ public class FoodService {
          return foodRepository.save(food);
 
     }
-
 
     public Food findFood(long foodId) {
         return findVerifiedFood(foodId);
@@ -36,6 +41,14 @@ public class FoodService {
         Pageable pageable = PageRequest.of(page-1,size);
         return foodRepository.findAll(pageable);
     }
+
+   public int getFoodLikeCount(Food food) {
+        return foodLikeRepository.countByFood(food);
+   }
+
+   public int getFoodViewCount(Food food) {
+        return foodViewRepository.countByFood(food);
+   }
 
     public Food updateFood(Food food) {
         Food findFood = findVerifiedFood(food.getFoodId());

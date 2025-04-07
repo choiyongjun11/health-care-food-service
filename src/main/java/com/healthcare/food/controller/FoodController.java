@@ -48,16 +48,36 @@ public class FoodController {
     }
 
     @GetMapping("/{food-id}")
-    public ResponseEntity getFood(@PathVariable("food-id") long foodId) {
+    public ResponseEntity<SingleResponseDto<FoodDto.Response>> getFood(@PathVariable("food-id") long foodId) {
+
         Food food = foodService.findFood(foodId);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.foodToFoodResponse(food)), HttpStatus.OK);
+
+        // 2. 좋아요 & 조회수 조회
+        int likeCount = foodService.getFoodLikeCount(food);
+        int viewCount = foodService.getFoodViewCount(food);
+
+        FoodDto.Response response = mapper.foodToFoodResponse(food);
+        response.setLikeCount(likeCount);
+        response.setViewCount(viewCount);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<?> getFoods(@RequestParam int page, @RequestParam int size) {
         Page<Food> foodPage = foodService.findFoods(page,size);
-        List<FoodDto.Response> responses = foodPage.getContent()
-                .stream().map(mapper::foodToFoodResponse)
+
+        List<FoodDto.Response> responses = foodPage.getContent().stream()
+                .map(food -> {
+                    FoodDto.Response response = mapper.foodToFoodResponse(food);
+
+                    int likeCount = foodService.getFoodLikeCount(food);
+                    int viewCount = foodService.getFoodViewCount(food);
+                    response.setLikeCount(likeCount);
+                    response.setViewCount(viewCount);
+
+                    return response;
+                })
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new MultiResponseDto<>(responses, foodPage));

@@ -34,7 +34,7 @@ public class RecipeDto {
     @Setter
     @AllArgsConstructor
     public static class Patch {
-        private Long recipeId;
+        private Long foodId;
         private List<RecipeStepDto> process;
         private Recipe.Difficulty difficulty;
     }
@@ -43,7 +43,7 @@ public class RecipeDto {
     @Setter
     @AllArgsConstructor
     public static class Response {
-        private Long recipeId;
+        private Long foodId;
         private String foodName;
         private List<RecipeStepDto> process;
         private Recipe.Difficulty difficulty;
