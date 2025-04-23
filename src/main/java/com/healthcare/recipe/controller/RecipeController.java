@@ -31,7 +31,7 @@ public class RecipeController {
     @PostMapping("/foods/{food-id}/recipes")
     public ResponseEntity postRecipe(@PathVariable("food-id") Long foodId,
                                      @RequestBody @Valid RecipeDto.Post requestBody) {
-        Recipe recipe = mapper.RecipePostToRecipe(requestBody); //
+        Recipe recipe = mapper.RecipePostToRecipe(requestBody);
         Recipe createdRecipe = recipeService.createRecipe(recipe, foodId);
         URI location = UriCreator.createUri(RECIPE_DEFAULT_URL, createdRecipe.getRecipeId());
         return ResponseEntity.created(location).build();

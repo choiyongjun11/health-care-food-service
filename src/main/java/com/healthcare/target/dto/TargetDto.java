@@ -3,6 +3,7 @@ package com.healthcare.target.dto;
 import com.healthcare.target.entity.Target;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class TargetDto {
@@ -29,8 +30,8 @@ public class TargetDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
-
         private Long targetId;
         private String ageGroupName; //성인
         private String goalTypeCategory; //체중관련
