@@ -17,32 +17,31 @@ import java.util.List;
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long recipeId; //래퍼형
+    private Long recipeId;
 
-    //mapping 관계 설정 Recipe (1) <-> Food (1) 1:1 관계
     @OneToOne
     @JoinColumn(name="food_id")
-    private Food food; //FK
+    private Food food;
 
-    //mapping 관계설정 Recipe (1) <-> RecipeStep(N) 1:N 관계
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeStep> process = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Difficulty difficulty = Difficulty.DIFFICULTY_LEVEL_ONE;
 
+    @Column(name = "total_cooking_time", nullable = true)
+    private String totalCookingTime;
+
     public enum Difficulty {
-        DIFFICULTY_LEVEL_ONE("레벨1"),
-        DIFFICULTY_LEVEL_TWO("레벨2"),
-        DIFFICULTY_LEVEL_THREE("레벨3");
+        DIFFICULTY_LEVEL_ONE("쉬움"),
+        DIFFICULTY_LEVEL_TWO("보통"),
+        DIFFICULTY_LEVEL_THREE("어려움");
 
+        @Getter
         private final String status;
-
         Difficulty(String status) {
             this.status = status;
         }
-
     }
-
 }

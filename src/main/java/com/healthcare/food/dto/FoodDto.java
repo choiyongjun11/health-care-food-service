@@ -43,8 +43,8 @@ public class FoodDto {
         private long foodId;
         private String foodName; //김밥
         private String foodImageUrl; //images/kimbap.jpg
-        private Integer viewCount; // 11
-        private Integer likeCount; //45
+        private Integer viewCount= 0; // 11
+        private Integer likeCount= 0; //45
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate foodCreateDate; //2025-04-02
 

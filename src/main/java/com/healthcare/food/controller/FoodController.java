@@ -63,6 +63,7 @@ public class FoodController {
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
+
     @GetMapping
     public ResponseEntity<?> getFoods(@RequestParam int page, @RequestParam int size) {
         Page<Food> foodPage = foodService.findFoods(page,size);

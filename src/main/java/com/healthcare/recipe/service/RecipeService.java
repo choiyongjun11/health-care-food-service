@@ -35,7 +35,6 @@ public class RecipeService {
         if (existing.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.RECIPE_ALREADY_EXISTS);
         }
-
         recipe.setFood(food);
 
         //관계 매핑 확인
@@ -44,6 +43,12 @@ public class RecipeService {
                 step.setRecipe(recipe);
             }
         }
+
+        //totalcookingtime 계산 구현
+        String totalCookingTime = recipe.getProcess().stream()
+                .mapToInt(RecipeStep::getCooktime)
+                .sum() + "분";
+        recipe.setTotalCookingTime(totalCookingTime);
 
         return recipeRepository.save(recipe);
     }
