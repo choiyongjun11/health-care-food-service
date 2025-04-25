@@ -46,7 +46,7 @@ public class ReviewService {
     }
 
     //리뷰 목록 조회 (페이지네이션)
-    public Page<Review> getReviews(long foodId, int page, int size) {
+    public Page<Review> findReviews(long foodId, int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         return reviewRepository.findByFood_FoodId(foodId, pageable);
     }
