@@ -1,5 +1,7 @@
 package com.healthcare.food.controller;
 
+import com.healthcare.ingredient.entity.Ingredient;
+import com.healthcare.ingredient.service.IngredientService;
 import com.healthcare.response.MultiResponseDto;
 import com.healthcare.response.SingleResponseDto;
 import com.healthcare.food.dto.FoodDto;
@@ -7,6 +9,7 @@ import com.healthcare.food.entity.Food;
 import com.healthcare.food.mapper.FoodMapper;
 import com.healthcare.food.repository.FoodRepository;
 import com.healthcare.food.service.FoodService;
+import com.healthcare.review.service.ReviewService;
 import com.healthcare.utils.UriCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -23,13 +26,18 @@ import java.util.stream.Collectors;
 public class FoodController {
     private final static String FOOD_DEFAULT_URL = "/foods";
     private final FoodService foodService;
+    private final IngredientService ingredientService;
+    private final ReviewService reviewService;
     private final FoodMapper mapper;
 
-    public FoodController(FoodService foodService, FoodMapper mapper) {
+    public FoodController(FoodService foodService, IngredientService ingredientService, ReviewService reviewService, FoodMapper mapper) {
         this.foodService = foodService;
+        this.ingredientService = ingredientService;
+        this.reviewService = reviewService;
         this.mapper = mapper;
-
     }
+
+
 
     @PostMapping
     public ResponseEntity postFood(@RequestBody FoodDto.Post requestBody) {
@@ -51,6 +59,7 @@ public class FoodController {
     public ResponseEntity<SingleResponseDto<FoodDto.Response>> getFood(@PathVariable("food-id") long foodId) {
 
         Food food = foodService.findFood(foodId);
+
 
         // 2. 좋아요 & 조회수 조회
         int likeCount = foodService.getFoodLikeCount(food);

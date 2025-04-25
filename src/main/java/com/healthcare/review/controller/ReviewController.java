@@ -43,7 +43,7 @@ public class ReviewController {
     @GetMapping("/{food-id}/reviews")
     public ResponseEntity<?> getReview(@PathVariable("food-id") long foodId,
                                        @RequestParam int page, @RequestParam int size) {
-        Page<Review> reviewPage = reviewService.getReviews(foodId, page, size);
+        Page<Review> reviewPage = reviewService.findReviews(foodId, page, size);
         List<ReviewDto.Response> responses = reviewPage.getContent()
                 .stream().map(mapper::reviewToResponse).collect(Collectors.toList());
 

@@ -44,7 +44,7 @@ public class MemberDto {
         private String name;
 
         @JsonFormat(pattern = "yyyy-MM-dd")
-        private Date birthday;
+        private LocalDate birthday;
 
         @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$", message = "휴대폰 번호 11자리로 구성되어 있으며 '-' 형태로 되어야 합니다.")
         private String phone;
@@ -64,7 +64,7 @@ public class MemberDto {
         private String name;
 
         @JsonFormat(pattern = "yyyy-MM-dd")
-        private Date birthday;
+        private LocalDate birthday;
 
         private String phone;
 

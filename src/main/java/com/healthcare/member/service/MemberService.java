@@ -60,6 +60,7 @@ public class MemberService {
 
         Member findMember = findVerifiedMember(member.getMemberId());
         Optional.ofNullable(member.getName()).ifPresent(name -> findMember.setName(name));
+        Optional.ofNullable(member.getBirthday()).ifPresent(birthday -> findMember.setBirthday(birthday));
         Optional.ofNullable(member.getPhone()).ifPresent(phone -> findMember.setPhone(phone));
 
         return memberRepository.save(findMember);

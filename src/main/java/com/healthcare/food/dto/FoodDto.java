@@ -1,6 +1,10 @@
 package com.healthcare.food.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.healthcare.ingredient.dto.IngredientDto;
+import com.healthcare.ingredient.entity.Ingredient;
+import com.healthcare.review.dto.ReviewDto;
+import com.healthcare.review.entity.Review;
 import com.healthcare.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +23,8 @@ public class FoodDto {
         @NotSpace
         private String foodName;
         @NotSpace
+        private String foodCategory;
+        @NotSpace
         private String foodImageUrl;
 
     }
@@ -31,6 +37,8 @@ public class FoodDto {
         @NotSpace
         private String foodName;
         @NotSpace
+        private String foodCategory;
+        @NotSpace
         private String foodImageUrl;
 
     }
@@ -42,11 +50,13 @@ public class FoodDto {
 
         private long foodId;
         private String foodName; //김밥
+        private String foodCategory; //밥
         private String foodImageUrl; //images/kimbap.jpg
         private Integer viewCount= 0; // 11
         private Integer likeCount= 0; //45
         @JsonFormat(pattern = "yyyy-MM-dd")
         private LocalDate foodCreateDate; //2025-04-02
+
 
         //List 형태로 effect, reason 응답
 

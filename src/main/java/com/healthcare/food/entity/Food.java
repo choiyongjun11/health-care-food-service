@@ -31,6 +31,9 @@ public class Food {
     private String foodName;
 
     @Column(nullable = false)
+    private String foodCategory;
+
+    @Column(nullable = false)
     private String foodImageUrl; //type 바뀔 수 있음. 임의로 설정
 
     @Column(nullable = false)
