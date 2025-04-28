@@ -18,7 +18,6 @@ public class FoodView {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long foodViewId;
-
     @Column(nullable = false)
     private Integer foodViewCount;
 

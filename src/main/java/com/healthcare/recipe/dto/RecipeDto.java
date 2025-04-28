@@ -1,10 +1,7 @@
 package com.healthcare.recipe.dto;
 
 import com.healthcare.recipe.entity.Recipe;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
 
 import javax.validation.constraints.Min;
@@ -24,6 +21,12 @@ public class RecipeDto {
         private String instruction;
 
         private String cooktime;
+
+        public RecipeStepDto(int step, String instruction, int cooktime) {
+            this.step = step;
+            this.instruction = instruction;
+            this.cooktime = String.valueOf(cooktime);
+        }
     }
 
     @Getter
@@ -46,6 +49,7 @@ public class RecipeDto {
 
     @Getter
     @Setter
+    @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Response {

@@ -1,10 +1,7 @@
 package com.healthcare.review.dto;
 
 import com.healthcare.validator.NotSpace;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -12,7 +9,6 @@ import java.time.LocalDateTime;
 public class ReviewDto {
 
     @Getter
-    @NoArgsConstructor
     @AllArgsConstructor
     public static class Post {
         private String content;
@@ -21,7 +17,6 @@ public class ReviewDto {
 
     @Getter
     @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
     public static class Patch {
         private long reviewId;
@@ -32,6 +27,7 @@ public class ReviewDto {
 
     @Getter
     @Setter
+    @Builder
     @AllArgsConstructor
     public static class Response {
         private long foodId;
@@ -39,6 +35,7 @@ public class ReviewDto {
         private long memberId;
         private String memberName; //작성한 리뷰에 사용자 이름 표시하여 식별하기 위해 사용 ex) 홍길동
         private String content;
+        private int rating;
         private LocalDate reviewCreateDate;
 
     }

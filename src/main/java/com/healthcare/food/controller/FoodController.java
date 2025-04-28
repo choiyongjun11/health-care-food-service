@@ -83,8 +83,8 @@ public class FoodController {
 
                     int likeCount = foodService.getFoodLikeCount(food);
                     int viewCount = foodService.getFoodViewCount(food);
-                    response.setLikeCount(likeCount);
-                    response.setViewCount(viewCount);
+                    response.updateLikeCount(likeCount);
+                    response.updateViewCount(viewCount);
 
                     return response;
                 })
@@ -99,7 +99,6 @@ public class FoodController {
         foodService.deleteFood(foodId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
 
 }
