@@ -116,4 +116,13 @@ public interface FoodMapper {
                 .build();
     }
 
+    default FoodDto.LikeResponse foodToLikeResponse(Food food, int likeCount, boolean liked) {
+        return FoodDto.LikeResponse.builder()
+                .foodId(food.getFoodId())
+                .likeCount(likeCount)
+                .liked(liked)
+                .build();
+    }
+
+
 }

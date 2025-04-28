@@ -28,7 +28,6 @@ public class FoodDto {
 
     }
 
-
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
@@ -68,32 +67,46 @@ public class FoodDto {
         private String foodCategory; //밥
         private String foodImageUrl; //images/kimbap.jpg
 
-        private List<IngredientDto.Response> foodIngredients; //음식 식재료 정보
-
+        private List<IngredientDto.Response> foodIngredients; //음식에 들어가는 식재료 정보
         private List<ReviewDto.Response> foodReviews; //리뷰 정보
+        private RecipeDto.Response recipe; //레시피 정보
+        private List<String> ageGroupNames; //타겟 연령대
+        private List<FoodRecommendDto> foodRecommends; //음식 추천 리스트
 
-        private RecipeDto.Response recipe; //레시피
-
-        private List<String> ageGroupNames;
-
-        private List<FoodRecommendDto> foodRecommends;
-
-        private Integer viewCount; // 11
-        private Integer likeCount; //45
+        private Integer viewCount; // 조회수
+        private Integer likeCount; //좋아요 수
         private Boolean liked; //좋아요 눌렀는지 여부
         @JsonFormat(pattern = "yyyy-MM-dd")
-        private LocalDate foodCreateDate; //2025-04-02
+        private LocalDate foodCreateDate; //2025-04-02 등록 날짜
 
         //List 형태로 effect, reason 응답
 
+        //좋아요 수 업데이트
         public void updateLikeCount(int likeCount) {
             this.likeCount = likeCount;
         }
-
+        //조회수 업데이트
         public void updateViewCount(int viewCount) {
             this.viewCount = viewCount;
         }
 
+        //좋아요 여부 업데이트
+        public void updateLiked(boolean liked) {
+            this.liked = liked;
+        }
+
+    }
+
+    //좋아요 결과 응답 DTO
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class LikeResponse {
+        private long foodId;
+        private int likeCount;
+        private boolean liked;
     }
 
 
