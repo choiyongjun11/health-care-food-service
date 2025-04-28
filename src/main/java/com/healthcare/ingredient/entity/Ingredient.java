@@ -33,7 +33,7 @@ public class Ingredient {
 
     //mapping 관계 설정 Ingredient (1) <-> FoodIngredient (N) 1:N 관계
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FoodIngredient> foodIngredient = new ArrayList<>();
+    private List<FoodIngredient> foodIngredients = new ArrayList<>();
 
     //mapping 관계 설정 Ingredient (1) <-> IngredientAnalysis (N) 1:N 관계
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)

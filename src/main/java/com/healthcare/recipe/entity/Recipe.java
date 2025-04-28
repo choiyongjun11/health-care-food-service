@@ -44,4 +44,5 @@ public class Recipe {
             this.status = status;
         }
     }
+
 }

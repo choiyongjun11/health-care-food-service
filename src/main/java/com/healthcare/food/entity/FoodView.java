@@ -17,10 +17,10 @@ import java.time.LocalDateTime;
 public class FoodView {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long foodViewId;
+    private Long foodViewId;
 
     @Column(nullable = false)
-    private Integer foodViewCount;
+    private Long foodViewCount;
 
     //mapping 관계 설정 FoodView (N) <-> Member (1) N:1 관계
     @ManyToOne
@@ -32,6 +32,12 @@ public class FoodView {
     @JoinColumn(name = "food_id")
     private Food food; //FK
 
+    public FoodView(Food food, Member member) {
+        this.food = food;
+        this.member = member;
+        this.foodViewCount = 1L;
+
+    }
 
 
 }

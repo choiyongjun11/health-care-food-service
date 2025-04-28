@@ -52,21 +52,21 @@ INSERT INTO member_roles (member_member_id, roles) VALUES
 
 -- 6. Food (음식)
 INSERT INTO food (food_id, food_name, food_category, food_image_url, food_create_date) VALUES
-                                                                            (1, '닭가슴살 샐러드', '샐러드/디저트','/foods/chicken-salad.jpg', '2025-04-21'),
-                                                                            (2, '된장찌개', '국/탕/찌개', '/foods/soybean-stew.jpg', '2025-04-21'),
-                                                                            (3, '고구마 구이', '구황작물', '/foods/sweetpotato.jpg', '2025-04-21'),
-                                                                            (4, '닭죽', '국/탕/찌개','/foods/chicken-porridge.jpg', '2025-04-21'),
-                                                                            (5, '잡곡밥','밥', '/foods/mixed-grains.jpg', '2025-04-21'),
-                                                                            (6, '소고기 미역국', '국/탕/찌개','/foods/beef-seaweed-soup.jpg', '2025-04-21'),
-                                                                            (7, '시금치나물','메인요리/반찬' ,'/foods/spinach-namul.jpg', '2025-04-21'),
-                                                                            (8, '연어 스테이크', '육류','/foods/salmon-steak.jpg', '2025-04-21'),
-                                                                            (9, '카레라이스', '밥','/foods/curry-rice.jpg', '2025-04-21'),
-                                                                            (10, '계란찜', '메인요리/반찬','/foods/steamed-egg.jpg', '2025-04-21'),
-                                                                            (11, '버섯볶음', '메인요리/반찬','/foods/stir-fried-mushrooms.jpg', '2025-04-21'),
-                                                                            (12, '단호박죽', '국/탕/찌개','/foods/pumpkin-porridge.jpg', '2025-04-21'),
-                                                                            (13, '콩나물국', '국/탕/찌개','/foods/bean-sprout-soup.jpg', '2025-04-21'),
-                                                                            (14, '불고기','육류', '/foods/bulgogi.jpg', '2025-04-21'),
-                                                                            (15, '토마토파스타', '면','/foods/tomato-pasta.jpg', '2025-04-21');
+                                                                            (1, '닭가슴살 샐러드', '샐러드/디저트','No.1.png', '2025-04-21'),
+                                                                            (2, '된장찌개', '국/탕/찌개', 'No.2.png', '2025-04-21'),
+                                                                            (3, '고구마 구이', '구황작물', 'No.3.png', '2025-04-21'),
+                                                                            (4, '삼계탕', '국/탕/찌개','No.4.png', '2025-04-21'),
+                                                                            (5, '잡곡밥','밥', 'No.5.png', '2025-04-21'),
+                                                                            (6, '소고기 미역국', '국/탕/찌개','No.6.png', '2025-04-21'),
+                                                                            (7, '시금치나물','메인요리/반찬' ,'No.7.png', '2025-04-21'),
+                                                                            (8, '연어 스테이크', '육류','No.8.png', '2025-04-21'),
+                                                                            (9, '카레라이스', '밥','No.9.png', '2025-04-21'),
+                                                                            (10, '계란찜', '메인요리/반찬','No.10.png', '2025-04-21'),
+                                                                            (11, '버섯볶음', '메인요리/반찬','No.11.png', '2025-04-21'),
+                                                                            (12, '단호박죽', '국/탕/찌개','No.12.png', '2025-04-21'),
+                                                                            (13, '콩나물국', '국/탕/찌개','No.13.png', '2025-04-21'),
+                                                                            (14, '불고기','육류', 'No.14.png', '2025-04-21'),
+                                                                            (15, '토마토파스타', '면','No.15.png', '2025-04-21');
 
 -- 7. FoodIngredient
 INSERT INTO food_ingredient (food_id, ingredient_id) VALUES
@@ -95,19 +95,27 @@ INSERT INTO food_ingredient (food_id, ingredient_id) VALUES
 
 -- 8. AgeGroupFood
 INSERT INTO age_group_food (age_group_id, food_id) VALUES
-                                                       (3, 1),
-                                                       (4, 2),
-                                                       (5, 3),
-                                                       (5, 4),
-                                                       (4, 5),
-                                                       (5, 6),
-                                                       (3, 7),
-                                                       (4, 8),
-                                                       (4, 9),
-                                                       (3, 10),
-                                                       (5, 11),
-                                                       (3, 12),
-                                                       (4, 13);
+                                                       (1, 1),  -- 유아 + 음식 1
+                                                       (2, 1),  -- 청소년 + 음식 1
+                                                       (3, 2),  -- 성인 + 음식 2
+                                                       (4, 2),  -- 노인 + 음식 2
+                                                       (2, 3),  -- 청소년 + 음식 3
+                                                       (3, 4),  -- 성인 + 음식 4
+                                                       (4, 5),  -- 노인 + 음식 5
+                                                       (3, 5),  -- 성인 + 음식 5
+                                                       (2, 6),  -- 청소년 + 음식 6
+                                                       (1, 7),  -- 유아 + 음식 7
+                                                       (3, 8),  -- 성인 + 음식 8
+                                                       (4, 9),  -- 노인 + 음식 9
+                                                       (2, 10), -- 청소년 + 음식 10
+                                                       (3, 11), -- 성인 + 음식 11
+                                                       (1, 12), -- 유아 + 음식 12
+                                                       (4, 12), -- 노인 + 음식 12
+                                                       (2, 13), -- 청소년 + 음식 13
+                                                       (3, 13), -- 성인 + 음식 13
+                                                       (1, 11), -- 유아 + 음식 11
+                                                       (3, 12); -- 성인 + 음식 12
+
 
 -- 9. Target
 INSERT INTO target (age_group_id, goal_type_id, target_status) VALUES
@@ -158,7 +166,7 @@ INSERT INTO food_recommend (food_id, goal_type_id, effect, reason) VALUES
 
 -- 12. FoodLike
 INSERT INTO food_like (member_id, food_id, like_count, like_date) VALUES
-                                                                      (1, 1, 1, '2025-04-01'),
+                                                                      (1, 1, 30, '2025-04-01'),
                                                                       (2, 2, 400, '2025-01-10'),
                                                                       (3, 3, 600, '2025-04-17'),
                                                                       (1, 4, 123, '2025-04-21'),
@@ -429,6 +437,5 @@ INSERT INTO ingredient_market (ingredient_id, market_name, market_region, market
                                                                                                         (10, '노량진수산시장', '서울', 3440, 'https://maps.google.com/?q=노량진수산시장'),
                                                                                                         (11, '남대문시장', '부산', 3351, 'https://maps.google.com/?q=남대문시장'),
                                                                                                         (12, '부산국제시장', '대구', 1908, 'https://maps.google.com/?q=부산국제시장'),
-                                                                                                        (13, '광주양동시장', '광주', 2506, 'https://maps.google.com/?q=광주양동시장'),
-                                                                                                        (14, '대전중앙시장', '대전', 4280, 'https://maps.google.com/?q=대전중앙시장'),
+                                                                                                       (14, '대전중앙시장', '대전', 4280, 'https://maps.google.com/?q=대전중앙시장'),
                                                                                                         (15, '노량진수산시장', '서울', 2433, 'https://maps.google.com/?q=노량진수산시장');
