@@ -15,6 +15,7 @@ import com.healthcare.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -53,7 +54,6 @@ public class FoodService {
         Pageable pageable = PageRequest.of(page - 1, size);
         return foodRepository.findAll(pageable);
     }
-
 
     public Food updateFood(Food food) {
         Food findFood = findVerifiedFood(food.getFoodId());
@@ -115,7 +115,6 @@ public class FoodService {
         int likeCount = foodLikeRepository.sumLikeCountByFood(food);
         return foodMapper.foodToLikeResponse(food, likeCount, liked);
     }
-
 
     private Food findVerifiedFood(long foodId) {
         return foodRepository.findById(foodId)

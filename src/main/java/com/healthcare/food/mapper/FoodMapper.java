@@ -105,6 +105,7 @@ public interface FoodMapper {
                 .foodName(food.getFoodName())
                 .foodCategory(food.getFoodCategory())
                 .foodImageUrl(food.getFoodImageUrl())
+                .foodDescription(food.getFoodDescription())
                 .foodIngredients(ingredientDtos)
                 .foodReviews(reviewDtos)
                 .recipe(recipeDto)

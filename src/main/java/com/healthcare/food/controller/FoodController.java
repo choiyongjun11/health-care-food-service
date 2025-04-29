@@ -11,6 +11,7 @@ import com.healthcare.response.SingleResponseDto;
 import com.healthcare.review.service.ReviewService;
 import com.healthcare.utils.UriCreator;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -87,19 +88,16 @@ public class FoodController {
     @GetMapping
     public ResponseEntity<?> getFoods(@RequestParam int page, @RequestParam int size) {
         Page<Food> foodPage = foodService.findFoods(page, size);
-
         List<FoodDto.Response> responses = foodPage.getContent().stream()
                 .map(food -> {
                     FoodDto.Response response = mapper.foodToFoodResponse(food);
                     int viewCount = foodService.getFoodViewCount(food);
                     int likeCount = foodService.getFoodLikeCount(food);
-
                     response.updateViewCount(viewCount);
                     response.updateLikeCount(likeCount);
                     return response;
                 })
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok(new MultiResponseDto<>(responses, foodPage));
     }
 

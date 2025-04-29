@@ -37,6 +37,9 @@ public class Food {
     private String foodImageUrl; //type 바뀔 수 있음. 임의로 설정
 
     @Column(nullable = false)
+    private String foodDescription; //설명글
+
+    @Column(nullable = false)
     private LocalDate foodCreateDate = LocalDate.now(); // 등록 날짜 자동 설정
 
     //mapping 관계 설정 Food (1) <-> Review (N) 1:N 관계

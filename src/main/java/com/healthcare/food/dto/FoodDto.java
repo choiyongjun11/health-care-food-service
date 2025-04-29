@@ -39,6 +39,8 @@ public class FoodDto {
         @NotSpace
         private String foodImageUrl;
 
+        private String foodDescription;
+
     }
 
     @Getter
@@ -54,6 +56,9 @@ public class FoodDto {
         @NotSpace
         private String foodImageUrl;
 
+
+        private String foodDescription;
+
     }
 
     @Getter
@@ -66,6 +71,7 @@ public class FoodDto {
         private String foodName; //김밥
         private String foodCategory; //밥
         private String foodImageUrl; //images/kimbap.jpg
+        private String foodDescription; //소개글
 
         private List<IngredientDto.Response> foodIngredients; //음식에 들어가는 식재료 정보
         private List<ReviewDto.Response> foodReviews; //리뷰 정보
