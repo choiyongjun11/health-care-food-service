@@ -33,6 +33,31 @@ public class MemberController {
         this.jwtTokenizer = jwtTokenizer;
     }
 
+    @GetMapping("/{member-id}")
+    public ResponseEntity getMember(@PathVariable("member-id") long memberId) {
+        Member member = memberService.findMember(memberId);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponse(member)), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{member-id}/actives")
+    public ResponseEntity<SingleResponseDto<MemberDto.MemberActivityResponse>> getMemberActivities(
+            @PathVariable("member-id") long memberId) {
+
+        MemberDto.MemberActivityResponse response = memberService.getMemberActivities(memberId);
+        return ResponseEntity.ok(new SingleResponseDto<>(response));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getMembers(@RequestParam int page, @RequestParam int size) {
+        Page<Member> memberPage = memberService.findMembers(page, size);
+        List<MemberDto.Response> responses = memberPage.getContent()
+                .stream()
+                .map(mapper::memberToMemberResponse)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(new MultiResponseDto<>(responses, memberPage));
+    }
+
     @PostMapping
     public ResponseEntity postMember(@RequestBody MemberDto.Post requestBody) {
         Member member = mapper.memberPostToMember(requestBody);
@@ -46,23 +71,6 @@ public class MemberController {
         requestBody.setMemberId(memberId);
         Member member = memberService.updateMember(mapper.memberPatchToMember(requestBody));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponse(member)),HttpStatus.OK);
-
-    }
-
-    @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") long memberId) {
-        Member member = memberService.findMember(memberId);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponse(member)), HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity<?> getMembers(@RequestParam int page, @RequestParam int size) {
-        Page<Member> memberPage = memberService.findMembers(page, size);
-        List<MemberDto.Response> responses = memberPage.getContent()
-                .stream()
-                .map(mapper::memberToMemberResponse)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(new MultiResponseDto<>(responses, memberPage));
     }
 
     @DeleteMapping("/{member-id}")
