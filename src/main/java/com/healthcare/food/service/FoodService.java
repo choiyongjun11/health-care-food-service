@@ -6,6 +6,7 @@ import com.healthcare.food.dto.FoodDto;
 import com.healthcare.food.entity.Food;
 import com.healthcare.food.entity.FoodLike;
 import com.healthcare.food.entity.FoodView;
+import com.healthcare.food.mapper.FoodLikeMapper;
 import com.healthcare.food.mapper.FoodMapper;
 import com.healthcare.food.repository.FoodLikeRepository;
 import com.healthcare.food.repository.FoodRepository;
@@ -26,18 +27,18 @@ public class FoodService {
     private final FoodRepository foodRepository;
     private final FoodLikeRepository foodLikeRepository;
     private final MemberRepository memberRepository;
-    private final FoodMapper foodMapper;
+    private final FoodLikeMapper foodLikeMapper;
     private final FoodViewRepository foodViewRepository;
 
     public FoodService(FoodRepository foodRepository,
                        FoodLikeRepository foodLikeRepository,
                        MemberRepository memberRepository,
-                       FoodMapper foodMapper,
+                       FoodLikeMapper foodLikeMapper,
                        FoodViewRepository foodViewRepository) {
         this.foodRepository = foodRepository;
         this.foodLikeRepository = foodLikeRepository;
         this.memberRepository = memberRepository;
-        this.foodMapper = foodMapper;
+        this.foodLikeMapper = foodLikeMapper;
         this.foodViewRepository = foodViewRepository;
     }
 
@@ -113,7 +114,7 @@ public class FoodService {
             liked = true;
         }
         int likeCount = foodLikeRepository.sumLikeCountByFood(food);
-        return foodMapper.foodToLikeResponse(food, likeCount, liked);
+        return foodLikeMapper.foodToLikeResponse(food, likeCount, liked);
     }
 
     private Food findVerifiedFood(long foodId) {

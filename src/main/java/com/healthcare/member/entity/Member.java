@@ -22,7 +22,7 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long memberId;
+    private Long memberId;
 
     @Column(nullable = false, updatable = false, unique = true) //unique 제약조건으로 중복 회원가입 방지
     private String email;

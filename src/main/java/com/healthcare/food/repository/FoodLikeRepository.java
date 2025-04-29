@@ -8,6 +8,7 @@
     import org.springframework.data.repository.CrudRepository;
     import org.springframework.data.repository.query.Param;
 
+    import java.util.List;
     import java.util.Optional;
 
     public interface FoodLikeRepository extends JpaRepository<FoodLike, Long> {
@@ -15,4 +16,5 @@
         int sumLikeCountByFood(@Param("food") Food food);
         boolean existsByMember_MemberIdAndFood(Long memberId, Food food); // (liked 조회용)
         Optional<FoodLike> findByMemberAndFood(Member member, Food food);
+        List<FoodLike> findByMember_MemberId(Long memberId);
     }

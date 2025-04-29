@@ -5,13 +5,10 @@ import com.healthcare.food.entity.Food;
 import com.healthcare.ingredient.dto.IngredientDto;
 import com.healthcare.recipe.dto.RecipeDto;
 import com.healthcare.review.dto.ReviewDto;
-import com.healthcare.target.dto.TargetDto;
-import com.healthcare.target.entity.Target;
 import org.mapstruct.Mapper;
-
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -114,14 +111,6 @@ public interface FoodMapper {
                 .viewCount(Optional.ofNullable(food.getFoodViews()).orElse(Collections.emptyList()).size())
                 .likeCount(Optional.ofNullable(food.getFoodLikes()).orElse(Collections.emptyList()).size())
                 .foodCreateDate(food.getFoodCreateDate())
-                .build();
-    }
-
-    default FoodDto.LikeResponse foodToLikeResponse(Food food, int likeCount, boolean liked) {
-        return FoodDto.LikeResponse.builder()
-                .foodId(food.getFoodId())
-                .likeCount(likeCount)
-                .liked(liked)
                 .build();
     }
 
