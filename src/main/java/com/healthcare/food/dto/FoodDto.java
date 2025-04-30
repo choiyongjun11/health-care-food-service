@@ -111,6 +111,11 @@ public class FoodDto {
     @Builder
     public static class LikeResponse {
         private long foodId;
+        private String foodName; //김밥
+        private String foodCategory; //밥
+        private String foodImageUrl; //images/kimbap.jpg
+        private String foodDescription; //소개글
+
         private int likeCount;
         private boolean liked;
     }
