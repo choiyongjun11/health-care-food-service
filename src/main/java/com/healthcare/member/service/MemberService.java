@@ -78,12 +78,12 @@ public class MemberService {
     public MemberDto.MemberActivityResponse getMemberActivities(Long memberId) {
         Member member = findVerifiedMember(memberId);
 
-        Set<Long> likedFoodIds = foodLikeRepository.findByMember_MemberId(memberId)
+        Set<Long> likedFoodIds = foodLikeRepository.findWithFoodByMemberId(memberId)
                 .stream()
                 .map(foodLike -> foodLike.getFood().getFoodId())
                 .collect(Collectors.toSet());
 
-        List<FoodDto.LikeResponse> likedFoods = foodLikeRepository.findByMember_MemberId(memberId)
+        List<FoodDto.LikeResponse> likedFoods = foodLikeRepository.findWithFoodByMemberId(memberId)
                 .stream()
                 .map(foodLike -> foodLikeMapper.foodToLikeResponse(
                         foodLike.getFood(),

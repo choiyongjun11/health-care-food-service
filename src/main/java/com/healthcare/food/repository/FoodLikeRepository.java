@@ -16,5 +16,9 @@
         int sumLikeCountByFood(@Param("food") Food food);
         boolean existsByMember_MemberIdAndFood(Long memberId, Food food); // (liked 조회용)
         Optional<FoodLike> findByMemberAndFood(Member member, Food food);
-        List<FoodLike> findByMember_MemberId(Long memberId);
+
+
+        @Query("SELECT fl FROM FoodLike fl JOIN FETCH fl.food WHERE fl.member.memberId = :memberId")
+        List<FoodLike> findWithFoodByMemberId(@Param("memberId") Long memberId);
+
     }

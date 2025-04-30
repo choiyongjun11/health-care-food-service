@@ -39,7 +39,6 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponse(member)), HttpStatus.OK);
     }
 
-
     @GetMapping("/{member-id}/actives")
     public ResponseEntity<SingleResponseDto<MemberDto.MemberActivityResponse>> getMemberActivities(
             @PathVariable("member-id") long memberId) {
