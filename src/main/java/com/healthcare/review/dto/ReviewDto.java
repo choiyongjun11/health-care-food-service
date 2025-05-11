@@ -12,6 +12,7 @@ public class ReviewDto {
     @AllArgsConstructor
     public static class Post {
         private String content;
+        private int rating;
 
     }
 
